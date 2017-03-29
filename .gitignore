@@ -1,0 +1,4 @@
+# files for private only
+fish/functions/kcptun.fish
+fish/functions/vpn.fish
+fish/functions/polex.fish

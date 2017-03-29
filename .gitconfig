@@ -1,0 +1,30 @@
+[user]
+	name = Liao Penghui
+	email = liaoishere@gmail.com
+[color]
+	ui = true
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	co = checkout
+	ci = commit
+	br = branch
+	st = status
+	up = rebase
+	last = log -1 HEAD
+	unstage = reset HEAD --
+	amend = commit --amend --reuse-message=HEAD
+[gitreview]
+	username = LiaoPenghui
+[push]
+	default = simple
+[core]
+	excludesfile = /Users/Liao/.gitignore_global
+	autocrlf = input
+	pager = more -r
+    pager = less -+F -+X
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path =
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true

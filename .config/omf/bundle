@@ -1,0 +1,10 @@
+package brew
+package foreign-env
+package git-flow
+package pyenv
+package python
+package sublime
+package tab
+package weather
+theme default
+theme robbyrussell

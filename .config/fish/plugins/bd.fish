@@ -1,0 +1,1 @@
+/Users/Liao/.fish/fish-bd/bd.fish
