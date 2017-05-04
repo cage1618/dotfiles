@@ -12,10 +12,6 @@ export WORKON_HOME=~/virtualenvs
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export PIP_RESPECT_VIRTUALENV=true
 
-# JIRA
-export JIRA_DEFAULT_ACTION=dashboard
-export JIRA_URL=http://jira.ustack.com
-
 # homebrew
 export HOMEBREW_GITHUB_API_TOKEN=a693b62fad1c3ddb0587c496c2731e3d48bab20b
 
@@ -29,3 +25,7 @@ export ANSIBLE_INVENTORY=$HOME/.ansible/hosts
 
 # autosuggestion
 export AUTOSUGGESTION_ACCEPT_RIGHT_ARROW=1
+
+export PYENV_ROOT=/usr/local/var/pyenv
+export GOPATH=/Users/Liao/Projects/go
+export PATH=$PATH:$GOPATH/bin

@@ -25,9 +25,10 @@ call plug#begin('~/.vim/bundle')
 Plug 'VundleVim/Vundle.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'L9'
-Plug 'kien/ctrlp.vim'
+" Plug 'kien/ctrlp.vim'
 Plug 'vim-scripts/fish-syntax'
 Plug 'dracula/vim'
+Plug 'fatih/molokai'
 
 " Ctrl Space
 Plug 'vim-ctrlspace/vim-ctrlspace'
@@ -45,11 +46,15 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes':   [],'passive_filetypes': [] }
 let g:syntastic_error_symbol='>>'
 let g:syntastic_warning_symbol='>'
 let g:syntastic_check_on_open=1
 let g:syntastic_check_on_wq=0
 let g:syntastic_enable_highlighting=1
+
+" Golang
+let g:syntastic_go_checkers = ['golint']
 
 " Puppet
 let g:syntastic_puppet_puppetlint_args='--no-80chars-check --no-documentation-check'
@@ -89,6 +94,8 @@ endfunction
 nnoremap <Leader>s :call ToggleErrors()<cr>
 " nnoremap <Leader>sn :lnext<cr>
 " nnoremap <Leader>sp :lprevious<cr>
+noremap <C-w>e :SyntasticCheck<CR>
+noremap <C-w>f :SyntasticToggleMode<CR>
 "
 
 " ################### 自动补全 ###################
@@ -110,7 +117,7 @@ let g:ycm_collect_identifiers_from_tags_files = 1
 " 关闭文档预览
 set completeopt-=preview
 
-let g:ycm_seed_identifiers_with_syntax=1   "语言关键字补全, 不过python关键字都很短，所以，需要的自己打开
+let g:ycm_seed_identifiers_with_syntax=0   "语言关键字补全
 
 " 跳转到定义处, 分屏打开
 let g:ycm_goto_buffer_command = 'horizontal-split'
@@ -306,33 +313,33 @@ let g:tagbar_type_ruby = {
 " 1. install gotags 'go get -u github.com/jstemmer/gotags'
 " 2. make sure `gotags` in you shell PATH, you can call check it with `which gotags`
 " for gotags. work with tagbar
-let g:tagbar_type_go = {
-    \ 'ctagstype' : 'go',
-    \ 'kinds'     : [
-        \ 'p:package',
-        \ 'i:imports:1',
-        \ 'c:constants',
-        \ 'v:variables',
-        \ 't:types',
-        \ 'n:interfaces',
-        \ 'w:fields',
-        \ 'e:embedded',
-        \ 'm:methods',
-        \ 'r:constructor',
-        \ 'f:functions'
-    \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-        \ 't' : 'ctype',
-        \ 'n' : 'ntype'
-    \ },
-    \ 'scope2kind' : {
-        \ 'ctype' : 't',
-        \ 'ntype' : 'n'
-    \ },
-    \ 'ctagsbin'  : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
-\ }
+" let g:tagbar_type_go = {
+    " \ 'ctagstype' : 'go',
+    " \ 'kinds'     : [
+        " \ 'p:package',
+        " \ 'i:imports:1',
+        " \ 'c:constants',
+        " \ 'v:variables',
+        " \ 't:types',
+        " \ 'n:interfaces',
+        " \ 'w:fields',
+        " \ 'e:embedded',
+        " \ 'm:methods',
+        " \ 'r:constructor',
+        " \ 'f:functions'
+    " \ ],
+    " \ 'sro' : '.',
+    " \ 'kind2scope' : {
+        " \ 't' : 'ctype',
+        " \ 'n' : 'ntype'
+    " \ },
+    " \ 'scope2kind' : {
+        " \ 'ctype' : 't',
+        " \ 'ntype' : 'n'
+    " \ },
+    " \ 'ctagsbin'  : 'gotags',
+    " \ 'ctagsargs' : '-sort -silent'
+" \ }
 
 
 " 去除taglist =>原因: 使用tagbar和ctrlp-funky可以直接快速跳转函数和变量位置,taglist有些多余
@@ -359,10 +366,16 @@ Plug 'hdima/python-syntax'
 let python_highlight_all = 1
 
 " ###### Golang #########
+Plug 'fatih/vim-go'
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
 " 1.install golang and install gocode 'go get github.com/nsf/gocode'
 " 2.make sure gocode in your path: `which gocode` (add $GOPATH/bin to you $PATH)
 Plug 'Blackrush/vim-gocode'
-Plug 'fatih/vim-go'
 
 " ###### Ruby #########
 Plug 'vim-ruby/vim-ruby'
@@ -439,6 +452,7 @@ Plug 'kshenoy/vim-signature'
 " #### Ag & Ack ####
 Plug 'Numkil/ag.nvim'
 " Plug 'mileszs/ack.vim'
+Plug 'rizzatti/dash.vim'
 
 
 " ####### temp #######

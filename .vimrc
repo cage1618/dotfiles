@@ -11,7 +11,6 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE=2
 " 修改leader键
 let mapleader = ','
 let g:mapleader = ','
-
 " neo vim python provider
 let g:python_host_prog  = '/usr/local/var/pyenv/shims/python'
 let g:python3_host_prog = '/usr/local/var/pyenv/shims/python'
@@ -30,14 +29,23 @@ set rtp+=~/.fzf
 "vim-ctrlspace
 set nocompatible
 set hidden
+set encoding=utf-8
 
 " backspace
 set backspace=indent,eol,start " backspace over everything in insert mode
-set autoindent
 
 " faster
 "set ttyfast
 set lazyredraw
+
+" set colorcolumn
+function! ColorColumn()
+    if(&colorcolumn == 80)
+        set colorcolumn=0
+    else
+        set colorcolumn=80
+    endif
+endfunc
 
 " files syntax
 syntax on
@@ -46,6 +54,7 @@ filetype plugin on
 set autoread
 " Python 文件的一般设置，比如不要 tab 等
 autocmd FileType python set tabstop=4 shiftwidth=4 expandtab ai
+autocmd FileType python nnoremap <leader>b :call ColorColumn()<cr>
 "autocmd FileType ruby set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
 autocmd BufRead,BufNew *.md,*.mkd,*.markdown  set filetype=markdown.mkd
 autocmd FileType yaml set sw=2 sts=2 et
@@ -53,10 +62,14 @@ autocmd FileType puppet set sw=2 sts=2 et
 
 if v:version >= 703
   " Note: Relative number is quite slow with Ruby, so is cursorline
-  autocmd FileType ruby setlocal ts=2 sts=2 sw=2 nocursorline nocursorcolumn
+  autocmd FileType ruby setlocal ts=2 sts=2 sw=2 ai expandtab nocursorline nocursorcolumn
 else
-  autocmd FileType ruby setlocal ts=2 sts=2 sw=2
+  autocmd FileType ruby setlocal ts=2 sts=2 sw=2 ai expandtab
 endif
+
+autocmd FileType go set tabstop=8 shiftwidth=8 softtabstop=0 noexpandtab
+autocmd FileType go map <leader>b :GoBuild<cr>
+autocmd FileType go map <leader>r :GoRun<cr>
 
 set hlsearch
 set showmode
@@ -65,9 +78,9 @@ set showmode
 set tabstop=4
 set shiftwidth=4
 set expandtab
-set encoding=utf-8
+set autoindent
 
-let g:molokai_original = 1
+" let g:molokai_original = 1
 let g:rehash256 = 1
 colorscheme molokai
 
@@ -116,20 +129,22 @@ set pastetoggle=<F3>            "    when in insert mode, press <F3> to go to
 " disbale paste mode when leaving insert mode
 au InsertLeave * set nopaste
 nnoremap <F4> :set wrap! wrap?<CR>
+if has('nvim')
 nnoremap <F5> :terminal<CR>
+endif
 nnoremap <F6> :set list! list?<CR>
 nnoremap <F7> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 """
 
 " set relativenumber number
-function! NumberToggle()
-  if(&relativenumber == 1)
-    set norelativenumber number
-  else
-    set relativenumber
-  endif
-endfunc
-nnoremap <C-n> :call NumberToggle()<cr>
+" function! NumberToggle()
+  " if(&relativenumber == 1)
+    " set norelativenumber number
+  " else
+    " set relativenumber
+  " endif
+" endfunc
+" nnoremap <C-n> :call NumberToggle()<cr>
 set number
 
 " tab 操作
@@ -150,16 +165,19 @@ map <leader>td :tabclose<cr>
 map <leader>tm :tabm<cr>
 
 
+nnoremap <C-p> :tabprevious<CR>
+nnoremap <C-n> :tabnext<CR>
+inoremap <C-p> <Esc>:tabprevious<CR>i
+inoremap <C-n> <Esc>:tabnext<CR>i
+" nnoremap <C-[> :tabprevious<CR>
+" nnoremap <C-]> :tabnext<CR>
+" inoremap <C-[> <Esc>:tabprevious<CR>i
+" inoremap <C-]> <Esc>:tabnext<CR>i
+
+
 " 新建tab  Ctrl+t
 nnoremap <C-t>     :tabnew<CR>
 inoremap <C-t>     <Esc>:tabnew<CR>
-" TODO: 配置成功这里, 切换更方便, 两个键
-" nnoremap <C-S-tab> :tabprevious<CR>
-" nnoremap <C-tab>   :tabnext<CR>
-" inoremap <C-S-tab> <Esc>:tabprevious<CR>i
-" inoremap <C-tab>   <Esc>:tabnext<CR>i
-" nnoremap <C-Left> :tabprevious<CR>
-" nnoremap <C-Right> :tabnext<CR>
 
 " normal模式下切换到确切的tab
 noremap <leader>1 1gt
@@ -232,22 +250,22 @@ cnoremap <C-e> <End>
 
 " 定义函数AutoSetFileHead，自动插入文件头
 " autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHead()"
-function! AutoSetFileHead()
-    "如果文件类型为.sh文件
-    if &filetype == 'sh'
-        call setline(1, "\#!/bin/bash")
-    endif
+" function! AutoSetFileHead()
+    " "如果文件类型为.sh文件
+    " if &filetype == 'sh'
+        " call setline(1, "\#!/bin/bash")
+    " endif
 
-    "如果文件类型为python
-    if &filetype == 'python'
-        call setline(1, "\#!/usr/bin/env python")
-        call append(1, "\# -*- coding: utf-8 -*-")
-    endif
+    " "如果文件类型为python
+    " if &filetype == 'python'
+        " call setline(1, "\#!/usr/bin/env python")
+        " call append(1, "\# -*- coding: utf-8 -*-")
+    " endif
 
-    normal G
-    normal o
-    normal o
-endfunc
+    " normal G
+    " normal o
+    " normal o
+" endfunc
 
 " 保存python文件时删除多余空格
 fun! <SID>StripTrailingWhitespaces()
@@ -259,23 +277,13 @@ endfun
 autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
 set wildignore=*.swp,*.bak,*.pyc,*.class,.svn
+
 " 突出显示当前行等
 set cursorcolumn
 set cursorline          " 突出显示当前行
 
-
-" set colorcolumn
-function! ColorColumn()
-    if(&colorcolumn == 80)
-        set colorcolumn=0
-    else
-        set colorcolumn=80
-    endif
-endfunc
-nnoremap <Leader>b :call ColorColumn()<cr>
-
 " Add the virtualenv's site-packages to vim path
-if has('python')
+if !has('nvim') && has('python')
 py << EOF
 import os.path
 import sys
