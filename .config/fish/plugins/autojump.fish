@@ -1,1 +1,0 @@
-/Users/Liao/.fish/autojump/bin/autojump.fish
