@@ -12,11 +12,6 @@ source ~/.config/fish/env.fish
 # Autojump
 [ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
 
-# Plugins
-for dir in (ls ~/.config/fish/plugins/*.fish)
-  source $dir
-end
-
 # Custom functions
 source ~/.config/fish/functions/custom.fish
 
