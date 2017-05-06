@@ -67,7 +67,7 @@ else
   autocmd FileType ruby setlocal ts=2 sts=2 sw=2 ai expandtab
 endif
 
-autocmd FileType go set tabstop=8 shiftwidth=8 softtabstop=0 noexpandtab
+autocmd FileType go set tabstop=4 shiftwidth=4 softtabstop=0 noexpandtab
 autocmd FileType go map <leader>b :GoBuild<cr>
 autocmd FileType go map <leader>r :GoRun<cr>
 
