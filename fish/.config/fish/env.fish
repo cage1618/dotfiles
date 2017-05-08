@@ -19,3 +19,6 @@ set -gx PYENV_ROOT /usr/local/var/pyenv
 # Go
 set -gx GOPATH ~/Projects/go
 set -gx PATH $GOPATH/bin $PATH
+
+# GPG
+set -gx GPG_TTY (tty)
