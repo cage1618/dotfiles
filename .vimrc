@@ -165,19 +165,29 @@ map <leader>td :tabclose<cr>
 map <leader>tm :tabm<cr>
 
 
-nnoremap <C-p> :tabprevious<CR>
-nnoremap <C-n> :tabnext<CR>
-inoremap <C-p> <Esc>:tabprevious<CR>i
-inoremap <C-n> <Esc>:tabnext<CR>i
-" nnoremap <C-[> :tabprevious<CR>
-" nnoremap <C-]> :tabnext<CR>
-" inoremap <C-[> <Esc>:tabprevious<CR>i
-" inoremap <C-]> <Esc>:tabnext<CR>i
+" nnoremap <C-p> :tabprevious<CR>
+" nnoremap <C-n> :tabnext<CR>
+" inoremap <C-p> <Esc>:tabprevious<CR>i
+" inoremap <C-n> <Esc>:tabnext<CR>i
+
+" Toggles between the active and last active tab "
+" The first tab is always 1 "
+let g:last_active_tab = 1
+" nnoremap <silent> <C-[> :execute 'tabnext ' . g:last_active_tab<cr>
+" vnoremap <silent> <C-[> :execute 'tabnext ' . g:last_active_tab<cr>
+nnoremap <silent> <leader>tt :execute 'tabnext ' . g:last_active_tab<cr>
+vnoremap <silent> <leader>tt :execute 'tabnext ' . g:last_active_tab<cr>
+autocmd TabLeave * let g:last_active_tab = tabpagenr()
 
 
 " 新建tab  Ctrl+t
 nnoremap <C-t>     :tabnew<CR>
 inoremap <C-t>     <Esc>:tabnew<CR>
+
+" nnoremap <leader>gt :execute 'tabnext ' . g:last_active_tab<cr>
+" nnoremap <silent> <c-o> :execute 'tabnext ' . g:last_active_tab<cr>
+" vnoremap <silent> <c-o> :execute 'tabnext ' . g:last_active_tab<cr>
+
 
 " normal模式下切换到确切的tab
 noremap <leader>1 1gt
@@ -204,17 +214,6 @@ nnoremap <leader>b6 :6b<CR>
 nnoremap <leader>b7 :7b<CR>
 nnoremap <leader>b8 :8b<CR>
 nnoremap <leader>b9 :9b<CR>
-
-" Toggles between the active and last active tab "
-" The first tab is always 1 "
-let g:last_active_tab = 1
-" nnoremap <leader>gt :execute 'tabnext ' . g:last_active_tab<cr>
-" nnoremap <silent> <c-o> :execute 'tabnext ' . g:last_active_tab<cr>
-" vnoremap <silent> <c-o> :execute 'tabnext ' . g:last_active_tab<cr>
-nnoremap <silent> <leader>tt :execute 'tabnext ' . g:last_active_tab<cr>
-vnoremap <silent> <leader>tt :execute 'tabnext ' . g:last_active_tab<cr>
-autocmd TabLeave * let g:last_active_tab = tabpagenr()
-
 " ------- 选中及操作改键
 
 "Reselect visual block after indent/outdent.调整缩进后自动选中，方便再次操作

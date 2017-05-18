@@ -1,5 +1,5 @@
 [user]
-	name = Liao Penghui
+	name = Penghui Liao
 	email = liaoishere@gmail.com
 	signingkey = B847939A95E9B47A
 [color]
@@ -19,7 +19,7 @@
 [push]
 	default = simple
 [core]
-	excludesfile = /Users/Liao/.gitignore_global
+    excludesfile = /Users/Liao/.gitignore_global
 	autocrlf = input
 	pager = more -r
     pager = less -+F -+X

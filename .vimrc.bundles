@@ -25,7 +25,8 @@ call plug#begin('~/.vim/bundle')
 Plug 'VundleVim/Vundle.vim'
 Plug 'tpope/vim-fugitive'
 " Plug 'L9'
-" Plug 'kien/ctrlp.vim'
+Plug 'kien/ctrlp.vim'
+" let g:ctrlp_map = '<C-[>'
 Plug 'vim-scripts/fish-syntax'
 Plug 'dracula/vim'
 Plug 'fatih/molokai'
@@ -120,7 +121,7 @@ set completeopt-=preview
 let g:ycm_seed_identifiers_with_syntax=0   "语言关键字补全
 
 " 跳转到定义处
-"let g:ycm_goto_buffer_command = 'horizontal-split'
+" let g:ycm_goto_buffer_command = 'horizontal-split'
 let g:ycm_goto_buffer_command = 'new-tab'  "在新标签中打开跳转
 "nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
@@ -374,6 +375,12 @@ let g:go_highlight_fields = 1
 let g:go_highlight_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+nnoremap <leader>ga :GoAlternate<cr>
+vnoremap <leader>ga :GoAlternate<cr>
+" let g:go_def_mode = 'guru'
+
+autocmd FileType go nmap <Leader>i <Plug>(go-info)
+
 " 1.install golang and install gocode 'go get github.com/nsf/gocode'
 " 2.make sure gocode in your path: `which gocode` (add $GOPATH/bin to you $PATH)
 Plug 'Blackrush/vim-gocode'

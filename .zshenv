@@ -27,5 +27,5 @@ export ANSIBLE_INVENTORY=$HOME/.ansible/hosts
 export AUTOSUGGESTION_ACCEPT_RIGHT_ARROW=1
 
 export PYENV_ROOT=/usr/local/var/pyenv
-export GOPATH=/Users/Liao/Projects/go
+export GOPATH=~/Projects/go
 export PATH=$PATH:$GOPATH/bin
