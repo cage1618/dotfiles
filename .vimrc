@@ -101,8 +101,8 @@ set laststatus=2
 
 " I can type :help on my own, thanks.  Protect your fat fingers from the evils of <F1>
 " noremap <F1> <Esc>"
-nmap <F1> :echo<CR>
-imap <F1> <C-o>:echo<CR>
+" nmap <F1> :echo<CR>
+" imap <F1> <C-o>:echo<CR>
 
 ""为方便复制，用<F2>开启/关闭行号显示:
 "function! HideNumber()
@@ -122,30 +122,31 @@ function! HideNumber()
     set number!
 endfunc
 nnoremap <F2> :call HideNumber()<CR>
-set pastetoggle=<F3>            "    when in insert mode, press <F3> to go to
-                                "    paste mode, where you can paste mass data
-                                "    that won't be autoindented
 
+nnoremap <F3> :ALEToggle<CR>
+
+set pastetoggle=<F4>
 " disbale paste mode when leaving insert mode
 au InsertLeave * set nopaste
-nnoremap <F4> :set wrap! wrap?<CR>
+
 if has('nvim')
-nnoremap <F5> :terminal<CR>
+    nnoremap <F5> :terminal<CR>
 endif
 nnoremap <F6> :set list! list?<CR>
 nnoremap <F7> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
+" nnoremap <F8> :set wrap! wrap?<CR>
 """
 
-" set relativenumber number
-" function! NumberToggle()
-  " if(&relativenumber == 1)
-    " set norelativenumber number
-  " else
-    " set relativenumber
-  " endif
-" endfunc
-" nnoremap <C-n> :call NumberToggle()<cr>
-set number
+set relativenumber number
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set norelativenumber number
+  else
+    set relativenumber
+  endif
+endfunc
+nnoremap <C-n> :call NumberToggle()<cr>
+set norelativenumber number
 
 " tab 操作
 " TODO: ctrl + n 变成切换tab的方法
@@ -173,8 +174,8 @@ map <leader>tm :tabm<cr>
 " Toggles between the active and last active tab "
 " The first tab is always 1 "
 let g:last_active_tab = 1
-" nnoremap <silent> <C-[> :execute 'tabnext ' . g:last_active_tab<cr>
-" vnoremap <silent> <C-[> :execute 'tabnext ' . g:last_active_tab<cr>
+nnoremap <silent> <F1> :execute 'tabnext ' . g:last_active_tab<cr>
+vnoremap <silent> <F1> :execute 'tabnext ' . g:last_active_tab<cr>
 nnoremap <silent> <leader>tt :execute 'tabnext ' . g:last_active_tab<cr>
 vnoremap <silent> <leader>tt :execute 'tabnext ' . g:last_active_tab<cr>
 autocmd TabLeave * let g:last_active_tab = tabpagenr()

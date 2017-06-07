@@ -15,6 +15,9 @@ source ~/.config/fish/env.fish
 # Custom functions
 source ~/.config/fish/functions/custom.fish
 
+# Xsky configs
+source ~/.config/fish/xsky.fish
+
 # Load oh-my-fish configuration.
 source $OMF_PATH/init.fish
 
