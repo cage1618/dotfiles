@@ -9,3 +9,5 @@ function demontest
     go test -v $argv -args (pwd)/tests/conf/app.conf
     docker stop demon-test-db > /dev/null ^ /dev/null
 end
+
+xsky-dev
