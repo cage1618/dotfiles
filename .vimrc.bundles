@@ -35,6 +35,7 @@ autocmd Filetype go let g:ctrlp_custom_ignore='\vvendor[\/]'
 Plug 'vim-scripts/fish-syntax'
 Plug 'dracula/vim'
 Plug 'flazz/vim-colorschemes'
+Plug 'rakr/vim-one'
 
 " Ctrl Space
 Plug 'vim-ctrlspace/vim-ctrlspace'
@@ -186,12 +187,12 @@ nnoremap <leader>gs :GitGutterToggle<CR>
 
 " ################### 显示增强 ###################
 
-" 状态栏增强展示
-" 新的airline配置
+" Airline
 Plug 'bling/vim-airline'
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
+let g:airline_theme='one'
 " let g:airline_left_sep = '▶'
 " let g:airline_left_alt_sep = '❯'
 " let g:airline_right_sep = '◀'
