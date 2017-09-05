@@ -30,7 +30,9 @@ if executable("ag")
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
     let g:ctrlp_use_caching = 0
 endif
-autocmd Filetype go let g:ctrlp_custom_ignore='\vvendor[\/]'
+" let g:ctrlp_custom_ignore = '\v[\/]\.(DS_Storegit|hg|svn|optimized|compiled|node_modules|vendor)$'
+" let g:ctrlp_custom_ignore = '\v[\/](node_modules|vendor|target|dist)|(\.(swp|ico|git|svn))$'
+let g:ctrlp_user_command = "find %s -type f | egrep -v 'vendor/|\.git/|node_modules/|bundles/'"
 
 Plug 'vim-scripts/fish-syntax'
 Plug 'dracula/vim'
@@ -84,7 +86,8 @@ let g:ycm_seed_identifiers_with_syntax=0   "语言关键字补全
 
 " 跳转到定义处
 " let g:ycm_goto_buffer_command = 'horizontal-split'
-let g:ycm_goto_buffer_command = 'new-tab'  "在新标签中打开跳转
+" let g:ycm_goto_buffer_command = 'new-tab'
+let g:ycm_goto_buffer_command = 'vertical-split'
 "nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
