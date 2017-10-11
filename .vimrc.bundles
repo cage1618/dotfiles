@@ -30,14 +30,15 @@ if executable("ag")
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
     let g:ctrlp_use_caching = 0
 endif
-" let g:ctrlp_custom_ignore = '\v[\/]\.(DS_Storegit|hg|svn|optimized|compiled|node_modules|vendor)$'
-" let g:ctrlp_custom_ignore = '\v[\/](node_modules|vendor|target|dist)|(\.(swp|ico|git|svn))$'
-let g:ctrlp_user_command = "find %s -type f | egrep -v 'vendor/|\.git/|node_modules/|bundles/'"
+" autocmd Filetype go let g:ctrlp_custom_ignore='\vvendor[\/]'
+let g:ctrlp_user_command = 'find %s -type f | egrep -v "\.(git|svn|vagrant)/|(vendor|node_modules)/"'
 
 Plug 'vim-scripts/fish-syntax'
 Plug 'dracula/vim'
 Plug 'flazz/vim-colorschemes'
 Plug 'rakr/vim-one'
+Plug 'joshdick/onedark.vim'
+Plug 'sheerun/vim-polyglot'
 
 " Ctrl Space
 Plug 'vim-ctrlspace/vim-ctrlspace'
@@ -406,7 +407,7 @@ let g:indentLine_enabled = 0
 nnoremap <leader>ig :IndentLinesToggle <CR>
 
 " ###### nginx #########
-Plug 'evanmiller/nginx-vim-syntax'
+Plug 'chr4/nginx.vim'
 
 Plug 'liaoishere/vim-puppet'
 
