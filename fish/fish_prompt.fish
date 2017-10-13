@@ -41,9 +41,17 @@ function fish_prompt
     if [ (_is_git_dirty) ]
       set -l dirty "$yellow ✗"
       set git_info "$git_info$dirty"
+    else
+      set -l dirty "$green ✔"
+      set git_info "$git_info$dirty"
     end
   end
 
   echo -n -s $arrow ' ' $cwd $git_info $normal ' '
+
+  # virtualenv
+  if set -q VIRTUAL_ENV
+    echo -n -s (set_color -o brgreen) "[" (basename "$VIRTUAL_ENV") "]" (set_color normal) " "
+  end
 end
 
