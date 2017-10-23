@@ -80,8 +80,6 @@ set shiftwidth=4
 set expandtab
 set autoindent
 
-" let g:molokai_original = 1
-" let g:rehash256 = 1
 "Credit joshdick
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
@@ -98,8 +96,11 @@ if (empty($TMUX))
     set termguicolors
   endif
 endif
-set background=dark
+
+let g:molokai_original = 1
+let g:rehash256 = 1
 let g:one_allow_italics = 1
+set background=dark
 colorscheme one
 
 " aieline
