@@ -67,9 +67,13 @@ else
   autocmd FileType ruby setlocal ts=2 sts=2 sw=2 ai expandtab
 endif
 
-autocmd FileType go set tabstop=4 shiftwidth=4 softtabstop=0 noexpandtab
+autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 autocmd FileType go map <leader>b :GoBuild<cr>
 autocmd FileType go map <leader>r :GoRun<cr>
+autocmd FileType go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+autocmd FileType go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+autocmd FileType go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+autocmd FileType go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
 
 set hlsearch
 set showmode
