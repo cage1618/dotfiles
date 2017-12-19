@@ -34,9 +34,10 @@ function fish_prompt
   end
   set -l cwd $cyan(basename (prompt_pwd))
 
-  if [ (_git_branch_name) ]
-    set -l git_branch $red(_git_branch_name)
-    set git_info "$blue git:($git_branch$blue)"
+  if [ (__fish_git_prompt) ]
+    set -l branch_info (__fish_git_prompt | tr -d '() ')
+    set -l branch_info $red{$branch_info}
+    set git_info "$blue git:($branch_info$blue)"
 
     if [ (_is_git_dirty) ]
       set -l dirty "$yellow ✗"

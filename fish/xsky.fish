@@ -10,4 +10,8 @@ function demontest
     docker stop demon-test-db > /dev/null ^ /dev/null
 end
 
+function fetch-xsky
+    git fetch -p xsky; and git fetch --tags xsky
+end
+
 xsky-dev
