@@ -14,4 +14,9 @@ function fetch-xsky
     git fetch -p xsky; and git fetch --tags xsky
 end
 
+function del-br
+    git br -D $argv
+    git push origin :$argv
+end
+
 xsky-dev

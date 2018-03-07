@@ -74,6 +74,8 @@ let g:ycm_complete_in_strings = 1   "在字符串输入中也能补全
 let g:ycm_use_ultisnips_completer = 1 "提示UltiSnips
 let g:ycm_collect_identifiers_from_comments_and_strings = 1   "注释和字符串中的文字也会被收入补全
 let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_gocode_binary_path = '/Users/Liao/Projects/go/bin/gocode'
+let g:ycm_godef_binary_path = '/Users/Liao/Projects/go/bin/godef'
 
 " 关闭文档预览
 set completeopt-=preview
@@ -295,7 +297,7 @@ nnoremap <leader>gd :GoDoc<cr>
 vnoremap <leader>gd :GoDoc<cr>
 nnoremap <leader>gi :GoInfo<cr>
 vnoremap <leader>gi :GoInfo<cr>
-" let g:go_def_mode = 'guru'
+let g:go_def_mode = 'guru'
 
 autocmd FileType go nmap <Leader>i <Plug>(go-info)
 
