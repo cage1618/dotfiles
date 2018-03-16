@@ -24,14 +24,23 @@ call plug#begin('~/.vim/bundle')
 
 Plug 'VundleVim/Vundle.vim'
 Plug 'tpope/vim-fugitive'
-Plug 'kien/ctrlp.vim'
-if executable("ag")
-    set grepprg=ag\ --nogroup\ --nocolor
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-    let g:ctrlp_use_caching = 0
-endif
-" autocmd Filetype go let g:ctrlp_custom_ignore='\vvendor[\/]'
-let g:ctrlp_user_command = 'find %s -type f | egrep -v "\.(git|svn|vagrant)/|(vendor|node_modules)/"'
+
+Plug 'ludovicchabant/vim-gutentags'
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+" replace ctrlp
+nnoremap <C-p> :FZF<CR>
+nnoremap <C-b> :BTags<CR>
+
+" Plug 'kien/ctrlp.vim'
+" if executable("ag")
+    " set grepprg=ag\ --nogroup\ --nocolor
+    " let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    " let g:ctrlp_use_caching = 0
+" endif
+" " autocmd Filetype go let g:ctrlp_custom_ignore='\vvendor[\/]'
+" let g:ctrlp_user_command = 'find %s -type f | egrep -v "\.(git|svn|vagrant)/|(vendor|node_modules)/"'
+
 
 Plug 'vim-scripts/fish-syntax'
 Plug 'dracula/vim'
@@ -297,6 +306,9 @@ nnoremap <leader>gd :GoDoc<cr>
 vnoremap <leader>gd :GoDoc<cr>
 nnoremap <leader>gi :GoInfo<cr>
 vnoremap <leader>gi :GoInfo<cr>
+" jump to def in splited vertical window
+nnoremap <buffer> <silent> <C-s>] :<C-u>call go#def#Jump("vsplit")<CR>
+nnoremap <buffer> <silent> <C-s><C-]> :<C-u>call go#def#Jump("vsplit")<CR>
 let g:go_def_mode = 'guru'
 
 autocmd FileType go nmap <Leader>i <Plug>(go-info)

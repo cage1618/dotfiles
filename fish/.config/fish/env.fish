@@ -22,3 +22,7 @@ set -gx PATH $GOPATH/bin $PATH
 
 # GPG
 set -gx GPG_TTY (tty)
+
+# FZF
+set -gx FZF_DEFAULT_COMMAND "fd --type f -E 'vendor/' -E 'build/'"
+set -gx FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
