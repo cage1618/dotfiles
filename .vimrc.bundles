@@ -29,8 +29,8 @@ autocmd  FileType fzf set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 " replace ctrlp
 nnoremap <C-p> :FZF<CR>
-nnoremap bt :BTags<CR>
-nnoremap bl :BLines<CR>
+nnoremap <leader>bt :BTags<CR>
+nnoremap <leader>bl :BLines<CR>
 
 " Plug 'kien/ctrlp.vim'
 " if executable("ag")
@@ -308,8 +308,10 @@ vnoremap <leader>gd :GoDoc<cr>
 nnoremap <leader>gi :GoInfo<cr>
 vnoremap <leader>gi :GoInfo<cr>
 " jump to def in splited vertical window
-nnoremap <buffer> <silent> <C-s>] :<C-u>call go#def#Jump("vsplit")<CR>
-nnoremap <buffer> <silent> <C-s><C-]> :<C-u>call go#def#Jump("vsplit")<CR>
+nnoremap <silent> <C-s>] :<C-u>call go#def#Jump("vsplit")<CR>
+nnoremap <silent> <C-s><C-]> :<C-u>call go#def#Jump("vsplit")<CR>
+nnoremap <silent> <C-x>] :<C-u>call go#def#Jump("tab")<CR>
+nnoremap <silent> <C-x><C-]> :<C-u>call go#def#Jump("tab")<CR>
 let g:go_def_mode = 'guru'
 
 autocmd FileType go nmap <Leader>i <Plug>(go-info)
