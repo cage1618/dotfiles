@@ -26,10 +26,13 @@ endif
 " fzf
 set rtp+=~/.fzf
 
-"vim-ctrlspace
+" vim-ctrlspace
 set nocompatible
 set hidden
 set encoding=utf-8
+
+" pattern memeory in Kbyte
+set maxmempattern=5000
 
 " backspace
 set backspace=indent,eol,start " backspace over everything in insert mode
