@@ -28,7 +28,7 @@ autocmd! FileType fzf
 autocmd  FileType fzf set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 " replace ctrlp
-nnoremap <C-p> :FZF<CR>
+nnoremap <silent> <C-p> :FZF<CR>
 nnoremap <leader>bt :BTags<CR>
 nnoremap <leader>bl :BLines<CR>
 
@@ -310,8 +310,8 @@ vnoremap <leader>gi :GoInfo<cr>
 " jump to def in splited vertical window
 nnoremap <silent> <C-s>] :<C-u>call go#def#Jump("vsplit")<CR>
 nnoremap <silent> <C-s><C-]> :<C-u>call go#def#Jump("vsplit")<CR>
-nnoremap <buffer> <silent> <C-x>] :<C-u>call go#def#Jump("tab")<CR>
-nnoremap <buffer> <silent> <C-x><C-]> :<C-u>call go#def#Jump("tab")<CR>
+nnoremap <silent> <C-x>] :<C-u>call go#def#Jump("tab")<CR>
+nnoremap <silent> <C-x><C-]> :<C-u>call go#def#Jump("tab")<CR>
 let g:go_def_mode = 'guru'
 
 autocmd FileType go nmap <Leader>i <Plug>(go-info)
