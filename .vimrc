@@ -12,8 +12,8 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE=2
 let mapleader = ','
 let g:mapleader = ','
 " neo vim python provider
-let g:python_host_prog  = '/usr/local/var/pyenv/shims/python'
-let g:python3_host_prog = '/usr/local/var/pyenv/shims/python'
+let g:python_host_prog  = '/usr/local/bin/python'
+let g:python3_host_prog = '/usr/local/bin/python3'
 
 " install Vundle bundles
 if filereadable(expand("~/.vimrc.bundles"))
