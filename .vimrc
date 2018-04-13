@@ -310,6 +310,20 @@ set wildignore=*.swp,*.bak,*.pyc,*.class,.svn
 set cursorcolumn
 set cursorline          " 突出显示当前行
 
+" ripgrep
+if executable("rg")
+    set grepprg=rg\ --vimgrep\ --no-heading
+    set grepformat=%f:%l:%c:%m,%f:%l:%m
+
+    " Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
+    command! -bang -nargs=* Rg
+        \ call fzf#vim#grep(
+        \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+        \   <bang>0 ? fzf#vim#with_preview('up:60%')
+        \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+        \   <bang>0)
+endif
+
 " Add the virtualenv's site-packages to vim path
 if !has('nvim') && has('python')
 py << EOF
