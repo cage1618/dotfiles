@@ -95,9 +95,9 @@ let g:ycm_seed_identifiers_with_syntax=0   "语言关键字补全
 " let g:ycm_goto_buffer_command = 'horizontal-split'
 " let g:ycm_goto_buffer_command = 'new-tab'
 let g:ycm_goto_buffer_command = 'vertical-split'
-"nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
+" nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <leader>gd :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>jd :YcmCompleter GoToDeclaration<CR>
 
 " 直接触发自动补全 insert模式下
 " let g:ycm_key_invoke_completion = '<C-Space>'
@@ -293,8 +293,6 @@ let g:go_highlight_extra_types = 1
 let g:go_highlight_build_constraints = 1
 nnoremap <leader>ga :GoAlternate<cr>
 vnoremap <leader>ga :GoAlternate<cr>
-nnoremap <leader>gd :GoDoc<cr>
-vnoremap <leader>gd :GoDoc<cr>
 nnoremap <leader>gi :GoInfo<cr>
 vnoremap <leader>gi :GoInfo<cr>
 " jump to def in splited vertical window
