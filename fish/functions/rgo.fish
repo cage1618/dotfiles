@@ -1,3 +1,3 @@
 function rgo
-    rg -g '!vendor/*' status
+    rg -g '!vendor/*' {$argv}
 end
