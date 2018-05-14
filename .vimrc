@@ -105,11 +105,6 @@ set autoindent
 " endif
 
 set termguicolors
-
-let g:molokai_original = 1
-let g:rehash256 = 1
-let g:one_allow_italics = 1
-set background=dark
 colorscheme one
 
 " aieline
@@ -271,8 +266,8 @@ noremap H ^
 noremap L $
 
 " 命令行模式增强，ctrl - a到行首， -e 到行尾
-cnoremap <C-j> <t_kd>
-cnoremap <C-k> <t_ku>
+cnoremap <C-j> <Down>
+cnoremap <C-k> <Up>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 
