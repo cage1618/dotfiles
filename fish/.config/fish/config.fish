@@ -31,3 +31,5 @@ source $OMF_PATH/init.fish
 
 # iterm2 shell integration
 # test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
+
+command -v vg >/dev/null 2>&1; and vg eval --shell fish | source

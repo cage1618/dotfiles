@@ -5,3 +5,4 @@ tags
 tags.lock
 tags.temp
 .remote-build.cfg
+.virtualgo

@@ -89,8 +89,18 @@ let g:ale_python_pylint_options = '--disable=C0111,C0301,R0902,R0903,R0913,R0914
 Plug 'mindriot101/vim-yapf'
 autocmd FileType python nnoremap <leader>y :Yapf<Cr>
 
-" auto completion
-Plug 'Valloric/YouCompleteMe'
+" YouCompleteMe
+function! BuildYCM(info)
+  " info is a dictionary with 3 fields
+  " - name:   name of the plugin
+  " - status: 'installed', 'updated', or 'unchanged'
+  " - force:  set on PlugInstall! or PlugUpdate!
+  if a:info.status == 'installed' || a:info.force
+    !./install.py --go-completer --clang-completer
+  endif
+endfunction
+
+Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
 "youcompleteme  默认tab  s-tab 和自动补全冲突
 " let g:ycm_key_list_select_completion=['<c-j>']
 " let g:ycm_key_list_previous_completion=['<c-k>']
@@ -107,7 +117,6 @@ set completeopt-=preview
 
 let g:ycm_seed_identifiers_with_syntax=0   "语言关键字补全
 
-" 跳转到定义处
 " let g:ycm_goto_buffer_command = 'horizontal-split'
 " let g:ycm_goto_buffer_command = 'new-tab'
 let g:ycm_goto_buffer_command = 'vertical-split'
