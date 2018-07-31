@@ -1,0 +1,60 @@
+source /usr/local/share/antigen/antigen.zsh
+
+antigen use oh-my-zsh
+
+# Bundles from the default repo (robbyrussell's oh-my-zsh).
+antigen bundle git
+antigen bundle autojump
+antigen bundle pip
+antigen bundle docker
+antigen bundle brew
+antigen bundle history-substring-search
+
+## Bundles
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-history-substring-search
+antigen bundle Tarrasch/zsh-bd
+
+# Load the theme.
+antigen theme robbyrussell
+
+# Tell Antigen that you're done.
+antigen apply
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Bindkey settings
+bindkey "${terminfo[kcuu1]}" history-substring-search-up
+bindkey "${terminfo[kcud1]}" history-substring-search-down
+bindkey "^P" up-line-or-search
+bindkey "^N" down-line-or-search
+
+# Color
+zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
+autoload -Uz compinit
+compinit
+
+# Envs
+export ANSIBLE_CONFIG=$HOME/.ansible
+export ANSIBLE_INVENTORY=$HOME/.ansible/hosts
+export GEM_SOURCE=https://ruby.taobao.org
+export LC_ALL="en_US.UTF-8"
+export LANG="en_US.UTF-8"
+export GREP_OPTIONS='--color=auto'
+export PYENV_ROOT=/usr/local/var/pyenv
+export GPG_TTY=$(tty)
+export GOPATH=~/Projects/go
+export PATH=$GOPATH/bin:$PATH
+
+# Alias
+alias ago="ag --ignore-dir vendor"
+alias rgo="rg -g '!vendor/*'"
+alias pushorigin='git push origin --set-upstream $(git branch | grep "^*" | tr -d "* ")'
+
+# vg
+command -v vg >/dev/null 2>&1 && eval "$(vg eval --shell zsh)"
+
+# work
+[ -f ~/.zsh_xsky.zsh ] && source ~/.zsh_xsky.zsh

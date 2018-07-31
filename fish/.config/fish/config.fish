@@ -12,9 +12,6 @@ source ~/.config/fish/env.fish
 # Autojump
 [ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
 
-# Custom functions
-source ~/.config/fish/functions/custom.fish
-
 # Xsky configs
 source ~/.config/fish/xsky.fish
 
