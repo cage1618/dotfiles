@@ -110,7 +110,7 @@ let g:ycm_use_ultisnips_completer = 1 "提示UltiSnips
 let g:ycm_collect_identifiers_from_comments_and_strings = 1   "注释和字符串中的文字也会被收入补全
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_gocode_binary_path = '/Users/Liao/Projects/go/bin/gocode'
-let g:ycm_godef_binary_path = '/Users/Liao/Projects/go/bin/godef'
+" let g:ycm_godef_binary_path = '/Users/Liao/Projects/go/bin/godef'
 
 " 关闭文档预览
 set completeopt-=preview
