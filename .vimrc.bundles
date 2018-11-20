@@ -110,7 +110,7 @@ let g:ycm_use_ultisnips_completer = 1 "提示UltiSnips
 let g:ycm_collect_identifiers_from_comments_and_strings = 1   "注释和字符串中的文字也会被收入补全
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_gocode_binary_path = '/Users/Liao/Projects/go/bin/gocode'
-" let g:ycm_godef_binary_path = '/Users/Liao/Projects/go/bin/godef'
+let g:ycm_godef_binary_path = '/Users/Liao/Projects/go/bin/godef'
 
 " 关闭文档预览
 set completeopt-=preview
@@ -305,7 +305,10 @@ let python_highlight_all = 1
 
 " ###### Golang #########
 Plug 'fatih/vim-go'
+let g:go_def_mode = 'guru'
+let g:go_info_mode = "guru"
 let g:go_fmt_command = "goimports"
+let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'test']
 " let g:go_auto_sameids = 1
 " let g:go_def_mapping_enabled = 0
 let g:go_auto_type_info = 0
@@ -326,7 +329,6 @@ nnoremap <silent> <C-s>] :<C-u>call go#def#Jump("vsplit")<CR>
 nnoremap <silent> <C-s><C-]> :<C-u>call go#def#Jump("vsplit")<CR>
 nnoremap <silent> <C-x>] :<C-u>call go#def#Jump("tab")<CR>
 nnoremap <silent> <C-x><C-]> :<C-u>call go#def#Jump("tab")<CR>
-let g:go_def_mode = 'guru'
 
 autocmd FileType go nmap <Leader>i <Plug>(go-info)
 
