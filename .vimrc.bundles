@@ -275,7 +275,7 @@ map <Leader>n <plug>NERDTreeTabsToggle<CR>
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " 标签导航
-" Plug 'ludovicchabant/vim-gutentags'
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 nmap <F9> :TagbarToggle<CR>
 let g:tagbar_sort = 0
@@ -308,7 +308,7 @@ Plug 'fatih/vim-go'
 let g:go_def_mode = 'guru'
 let g:go_info_mode = "guru"
 let g:go_fmt_command = "goimports"
-let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'test']
+" let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'test']
 " let g:go_auto_sameids = 1
 " let g:go_def_mapping_enabled = 0
 let g:go_auto_type_info = 0
