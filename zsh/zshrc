@@ -47,6 +47,8 @@ export PYENV_ROOT=/usr/local/var/pyenv
 export GPG_TTY=$(tty)
 export GOPATH=~/Projects/go
 export PATH=$GOPATH/bin:$PATH
+# GNU-sed
+export PATH=/usr/local/opt/gnu-sed/libexec/gnubin $PATH:$PATH
 
 # Alias
 alias ago="ag --ignore-dir vendor"
