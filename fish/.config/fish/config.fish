@@ -18,9 +18,8 @@ source ~/.config/fish/xsky.fish
 # Load oh-my-fish configuration.
 source $OMF_PATH/init.fish
 
-# pyenv virtualenv
-# status --is-interactive; and . (pyenv init -|psub)
-# status --is-interactive; and . (pyenv virtualenv-init -|psub)
+# pipenv
+set pipenv_fish_fancy yes
 
 # Cowsay
 # python -c "import sys, random; stdout = sys.stdout; sys.stdout = type('BlackHole', (), {'write': (lambda self, string: '')})(); import this; sys.stdout = stdout; print random.choice(''.join([this.d.get(i, i) for i in this.s]).splitlines()[2:]);" | cowsay -f www | lolcat
