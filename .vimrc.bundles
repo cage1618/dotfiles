@@ -305,9 +305,11 @@ let python_highlight_all = 1
 
 " ###### Golang #########
 Plug 'fatih/vim-go'
-let g:go_def_mode = 'guru'
-let g:go_info_mode = "guru"
-let g:go_fmt_command = "goimports"
+" let g:go_def_mode = 'guru'
+let g:go_def_mode = 'gopls'
+let g:go_info_mode = 'guru'
+let g:go_fmt_command = 'goimports'
+let g:go_metalinter_command = 'golangci-lint'
 " let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'test']
 " let g:go_auto_sameids = 1
 " let g:go_def_mapping_enabled = 0
@@ -325,10 +327,12 @@ vnoremap <leader>ga :GoAlternate<cr>
 nnoremap <leader>gi :GoInfo<cr>
 vnoremap <leader>gi :GoInfo<cr>
 " jump to def in splited vertical window
-nnoremap <silent> <C-s>] :<C-u>call go#def#Jump("vsplit")<CR>
-nnoremap <silent> <C-s><C-]> :<C-u>call go#def#Jump("vsplit")<CR>
-nnoremap <silent> <C-x>] :<C-u>call go#def#Jump("tab")<CR>
-nnoremap <silent> <C-x><C-]> :<C-u>call go#def#Jump("tab")<CR>
+nmap <C-s>] <Plug>(go-def-vertical)
+nmap <C-s><C-]> <Plug>(go-def-vertical)
+nmap <C-x>] <Plug>(go-def-split)
+nmap <C-x><C-]> <Plug>(go-def-split)
+nmap <C-t>] <Plug>(go-def-tab)
+nmap <C-t><C-]> <Plug>(go-def-tab)
 
 autocmd FileType go nmap <Leader>i <Plug>(go-info)
 
