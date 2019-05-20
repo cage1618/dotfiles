@@ -55,10 +55,10 @@ syntax on
 filetype plugin on
 " filetype plugin indent on
 set autoread
-" Python 文件的一般设置，比如不要 tab 等
 autocmd FileType python set tabstop=4 shiftwidth=4 expandtab ai
 autocmd FileType python nnoremap <leader>b :call ColorColumn()<cr>
-"autocmd FileType ruby set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
+autocmd FileType python let b:delimitMate_nesting_quotes = ['"']
+autocmd FileType ruby set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
 autocmd BufRead,BufNew *.md,*.mkd,*.markdown  set filetype=markdown.mkd
 autocmd FileType yaml set sw=2 sts=2 et
 autocmd FileType puppet set sw=2 sts=2 et

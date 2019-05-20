@@ -1,22 +1,7 @@
 " ==========================================
-" bundle 插件管理和配置项
-" ==========================================
-
-"------------------------------------------- begin of configs --------------------------------------------
-
-" ################### 包依赖 #####################
-" package dependence:  ctags, ag(he_silver_searcher)
-" python dependence:   pep8, pyflake
-
-" 非兼容vi模式。去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限
 set nocompatible
-filetype off " required! turn off
+filetype off
 
-" ################### 插件管理 ###################
-" ----------------------------------------------------------------------------
-" 使用 vim-plug 管理插件
-" vim plugin bundle control, command model
-" ----------------------------------------------------------------------------
 
 call plug#begin('~/.vim/bundle')
 
@@ -32,6 +17,8 @@ nnoremap <silent> <C-p> :FZF<CR>
 nnoremap <leader>bt :BTags<CR>
 nnoremap <leader>bl :BLines<CR>
 
+" Replaced by :FZF
+"
 " Plug 'kien/ctrlp.vim'
 " if executable("ag")
 "     set grepprg=ag\ --nogroup\ --nocolor
@@ -61,24 +48,10 @@ Plug 'vim-ctrlspace/vim-ctrlspace'
 if has('nvim')
     nnoremap <c-space> :CtrlSpace<CR>
 endif
-" let g:CtrlSpaceDefaultMappingKey = "<C-space>"
+" let g:CtrlSpaceDefaultMappingKey = '<C-space>'
 
-" 多语言语法检查
+" Linter
 Plug 'w0rp/ale'
-function! LinterStatus() abort
-    let l:counts = ale#statusline#Count(bufnr(''))
-
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
-
-    return l:counts.total == 0 ? 'OK' : printf(
-    \   '%dW %dE',
-    \   all_non_errors,
-    \   all_errors
-    \)
-endfunction
-set statusline=%{LinterStatus()}
-
 let g:ale_linters = {
 \   'python': ['flake8', 'pylint'],
 \   'go': ['golangci-lint'],
@@ -88,7 +61,7 @@ let g:ale_go_golangci_lint_options = '--fast'
 let g:ale_python_flake8_options = '--ignore=F821,E501'
 let g:ale_python_pylint_options = '--disable=C0111,C0301,R0902,R0903,R0913,R0914,R0915,E1101,E1004'
 
-" python code formatter
+" Python code formatter
 Plug 'mindriot101/vim-yapf'
 autocmd FileType python nnoremap <leader>y :Yapf<Cr>
 
@@ -150,16 +123,10 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
-" 自动补全单引号，双引号等
+" Auto complete for quote marks
 Plug 'Raimondi/delimitMate'
 
-"" for python docstring ",优化输入
-au FileType python let b:delimitMate_nesting_quotes = ['"']
-" 关闭某些类型文件的自动补全
-"au FileType mail let b:delimitMate_autoclose = 0
-
-
-" 自动补全html/xml标签
+" auto complete for html/xml tags
 Plug 'docunext/closetag.vim'
 let g:closetag_html_style=1
 
@@ -172,7 +139,7 @@ Plug 'terryma/vim-expand-region'
 vmap v <Plug>(expand_region_expand)
 vmap V <Plug>(expand_region_shrink)
 
-" 多光标选中编辑
+" Multi cursor
 Plug 'terryma/vim-multiple-cursors'
 let g:multi_cursor_use_default_mapping=0
 " Default mapping
@@ -182,20 +149,20 @@ let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
 
 
-" comment shortcuts
+" Comment shortcuts
 Plug 'scrooloose/nerdcommenter'
 let g:NERDSpaceDelims=1
 
-" modify surround characters
+" Modify surround characters
 Plug 'tpope/vim-surround'
-" for repeat -> enhance surround.vim, . to repeat command
+" For repeat -> enhance surround.vim, . to repeat command
 Plug 'tpope/vim-repeat'
 
-" remove trailing whitespaces: [, + <Space>]
+" Remove trailing whitespaces: [, + <Space>]
 Plug 'bronson/vim-trailing-whitespace'
 map <leader><space> :FixWhitespace<cr>
 
-" 快速赋值语句对齐
+" Align statements
 Plug 'junegunn/vim-easy-align'
 vmap <leader>a <Plug>(EasyAlign)
 nmap <leader>a <Plug>(EasyAlign)
@@ -204,7 +171,7 @@ if !exists('g:easy_align_delimiters')
 endif
 let g:easy_align_delimiters['#'] = { 'pattern': '#', 'ignore_groups': ['String'] }
 
-" show git diff
+" Show git diff
 Plug 'airblade/vim-gitgutter'
 let g:gitgutter_map_keys = 0
 let g:gitgutter_enabled = 0
@@ -218,6 +185,7 @@ if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 let g:airline_theme='one'
+let g:airline#extensions#ale#enabled = 1
 
 " Buffer line
 "Plug 'bling/vim-bufferline'
@@ -254,7 +222,7 @@ let g:rbpt_loadcmd_toggle = 0
 "au Syntax * RainbowParenthesesLoadSquare
 "au Syntax * RainbowParenthesesLoadBraces
 
-" nerdtree
+" Nerdtree
 Plug 'scrooloose/nerdtree'
 map <leader>n :NERDTreeToggle<CR>
 let NERDTreeHighlightCursorline=1
@@ -277,18 +245,15 @@ map <Leader>n <plug>NERDTreeTabsToggle<CR>
 " nerdtree git support
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
-" 标签导航
+" Vim tags
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 nmap <F9> :TagbarToggle<CR>
 let g:tagbar_sort = 0
 let g:tagbar_autofocus = 1
 
-" ################### 语言相关 ###################
 " For tmux navigator Ctrl-hjkl
 Plug 'christoomey/vim-tmux-navigator'
-
-" ################### 语言相关 ###################
 
 Plug 'thinca/vim-quickrun'
 let g:quickrun_config = {
@@ -438,4 +403,4 @@ Plug 'christoomey/vim-system-copy'
 
 call plug#end()
 
-filetype plugin on    " required
+filetype plugin on
