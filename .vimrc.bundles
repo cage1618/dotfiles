@@ -87,11 +87,10 @@ let g:ycm_collect_identifiers_from_comments_and_strings = 1   "注释和字符�
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_gocode_binary_path = '/Users/Liao/Projects/go/bin/gocode'
 let g:ycm_godef_binary_path = '/Users/Liao/Projects/go/bin/godef'
-
-" 关闭文档预览
-set completeopt-=preview
-
 let g:ycm_seed_identifiers_with_syntax=0   "语言关键字补全
+
+" Turn off scratch preview
+" set completeopt-=preview
 
 " let g:ycm_goto_buffer_command = 'horizontal-split'
 " let g:ycm_goto_buffer_command = 'new-tab'
@@ -106,6 +105,8 @@ nnoremap <leader>jd :YcmCompleter GoToDeclaration<CR>
 let g:ycm_filetype_blacklist = {
       \ 'tagbar' : 1,
       \ 'gitcommit' : 1,
+      \ 'fzf': 1,
+      \ 'ctrlp': 1
       \}
 
 " Ultimate Snippet
