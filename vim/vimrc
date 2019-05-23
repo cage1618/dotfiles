@@ -1,0 +1,87 @@
+let s:curdir = fnamemodify(resolve(expand('<sfile>:p')), ':h')
+
+" code fold
+set foldmethod=indent
+set foldlevel=99
+nnoremap <space> za
+
+" disable mouse
+" set mouse-=a
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=2
+
+" Set leader key
+let mapleader = ','
+
+" neo vim python provider
+let g:python_host_prog  = '/usr/local/bin/python'
+let g:python3_host_prog = '/usr/local/bin/python3'
+
+" Plugin config
+for fpath in split(globpath(expand(s:curdir.'/config'), '*.vim'), '\n')
+  exe 'source' fpath
+endfor
+
+set nocompatible
+set hidden
+set encoding=utf-8
+set termguicolors
+colorscheme one
+
+" cursor column and line
+set cursorcolumn
+set cursorline
+
+" pattern memeory in Kbyte
+set maxmempattern=5000
+
+" backspace
+set backspace=indent,eol,start " backspace over everything in insert mode
+
+" faster
+"set ttyfast
+set lazyredraw
+
+" files syntax
+syntax on
+filetype plugin on
+
+" filetype plugin indent on
+set autoread
+set hlsearch
+set showmode
+
+" tab width
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set autoindent
+
+" airline
+" Status line
+set statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %-14.(%l,%c%V%)\ %P
+" Always show the status line - use 2 lines for the status bar
+set laststatus=2
+
+
+" 保存python文件时删除多余空格
+fun! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
+autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+
+" Add the virtualenv's site-packages to vim path
+if !has('nvim') && has('python')
+py << EOF
+import os.path
+import sys
+import vim
+if 'VIRTUAL_ENV' in os.environ:
+    project_base_dir = os.environ['VIRTUAL_ENV']
+    sys.path.insert(0, project_base_dir)
+    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+    execfile(activate_this, dict(__file__=activate_this))
+EOF
+endif

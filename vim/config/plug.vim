@@ -7,12 +7,26 @@ call plug#begin('~/.vim/bundle')
 
 Plug 'tpope/vim-fugitive'
 
+" ================== FZF ==================
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 autocmd! FileType fzf
 autocmd  FileType fzf set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-" replace ctrlp
+" Ag grep
+command! -bang -nargs=* Ag
+  \ call fzf#vim#ag(<q-args>,
+  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \                 <bang>0)
+" Rg grep
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
 nnoremap <silent> <C-p> :FZF<CR>
 nnoremap <leader>bt :BTags<CR>
 nnoremap <leader>bl :BLines<CR>
@@ -27,6 +41,7 @@ nnoremap <leader>bl :BLines<CR>
 " endif
 " " autocmd Filetype go let g:ctrlp_custom_ignore='\vvendor[\/]'
 " let g:ctrlp_user_command = 'find %s -type f | egrep -v "\.(git|svn|vagrant)/|(vendor|node_modules)/"'
+" set wildignore=*.swp,*.bak,*.pyc,*.class,.svn
 
 
 " color scheme
@@ -42,13 +57,6 @@ set background=dark
 " file syntax
 " Plug 'sheerun/vim-polyglot'
 Plug 'vim-scripts/fish-syntax'
-
-" Ctrl Space
-Plug 'vim-ctrlspace/vim-ctrlspace'
-if has('nvim')
-    nnoremap <c-space> :CtrlSpace<CR>
-endif
-" let g:CtrlSpaceDefaultMappingKey = '<C-space>'
 
 " Linter
 Plug 'w0rp/ale'
@@ -188,34 +196,32 @@ endif
 let g:airline_theme='one'
 let g:airline#extensions#ale#enabled = 1
 
-" Buffer line
-"Plug 'bling/vim-bufferline'
-
 
 " rainbow parentheses
-Plug 'kien/rainbow_parentheses.vim'
-" 不加入这行, 防止黑色括号出现, 很难识别
-" \ ['black',       'SeaGreen3'],
-let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['red',         'firebrick3'],
-    \ ]
-
-let g:rbpt_max = 16
-let g:rbpt_loadcmd_toggle = 0
+Plug 'luochen1990/rainbow'
+let g:rainbow_active = 0
+let g:rainbow_conf = {
+\	'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+\	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+\	'operators': '_,_',
+\	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+\	'separately': {
+\		'*': {},
+\		'tex': {
+\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
+\		},
+\		'lisp': {
+\			'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+\		},
+\		'vim': {
+\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
+\		},
+\		'html': {
+\			'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
+\		},
+\		'css': 0,
+\	}
+\}
 
 " Trun off auto toggle, cause conflicting with syntax color
 "au VimEnter * RainbowParenthesesToggle
@@ -252,6 +258,10 @@ Plug 'majutsushi/tagbar'
 nmap <F9> :TagbarToggle<CR>
 let g:tagbar_sort = 0
 let g:tagbar_autofocus = 1
+
+" Stop gutentags getting upset in short-lived sessions
+" https://github.com/ludovicchabant/vim-gutentags/issues/178
+ let g:gutentags_exclude_filetypes=['gitcommit']
 
 " For tmux navigator Ctrl-hjkl
 Plug 'christoomey/vim-tmux-navigator'
@@ -292,23 +302,23 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_build_constraints = 1
-nnoremap <leader>ga :GoAlternate<cr>
-vnoremap <leader>ga :GoAlternate<cr>
-nnoremap <leader>gi :GoInfo<cr>
-vnoremap <leader>gi :GoInfo<cr>
 " jump to def in splited vertical window
-nmap <C-s>] <Plug>(go-def-vertical)
-nmap <C-s><C-]> <Plug>(go-def-vertical)
-nmap <C-x>] <Plug>(go-def-split)
-nmap <C-x><C-]> <Plug>(go-def-split)
-nmap <C-t>] <Plug>(go-def-tab)
-nmap <C-t><C-]> <Plug>(go-def-tab)
+autocmd FileType go map <C-s>] <Plug>(go-def-vertical)
+autocmd FileType go map <C-s><C-]> <Plug>(go-def-vertical)
+autocmd FileType go map <C-x>] <Plug>(go-def-split)
+autocmd FileType go map <C-x><C-]> <Plug>(go-def-split)
+autocmd FileType go map <C-t>] <Plug>(go-def-tab)
+autocmd FileType go noremap <C-t><C-]> <Plug>(go-def-tab)
 
-autocmd FileType go nmap <Leader>i <Plug>(go-info)
+autocmd FileType go noremap <leader>ga :GoAlternate<cr>
+autocmd FileType go noremap <leader>gi :GoInfo<cr>
+autocmd FileType go noremap <leader>b :GoBuild<cr>
+autocmd FileType go noremap <leader>r :GoRun<cr>
 
-" 1.install golang and install gocode 'go get github.com/nsf/gocode'
-" 2.make sure gocode in your path: `which gocode` (add $GOPATH/bin to you $PATH)
-Plug 'Blackrush/vim-gocode'
+autocmd FileType go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+autocmd FileType go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+autocmd FileType go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+autocmd FileType go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
 
 " ###### Ruby #########
 Plug 'vim-ruby/vim-ruby'
@@ -396,8 +406,6 @@ set statusline=%{anzu#search_status()}
 Plug 'kshenoy/vim-signature'
 
 " #### Ag & Ack ####
-Plug 'Numkil/ag.nvim'
-" Plug 'mileszs/ack.vim'
 Plug 'rizzatti/dash.vim'
 
 Plug 'christoomey/vim-system-copy'

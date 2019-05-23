@@ -1,4 +1,0 @@
-#
-function h
-    history
-end
