@@ -20,6 +20,8 @@ nnoremap ; :
 " Go to home and end using capitalized directions
 noremap H ^
 noremap L $
+" Fold code
+nnoremap <space> za
 
 " Shortcut for command mode
 cnoremap <C-j> <Down>

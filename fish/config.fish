@@ -12,9 +12,6 @@ source ~/.config/fish/env.fish
 # Autojump
 [ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
 
-# Xsky configs
-source ~/.config/fish/xsky.fish
-
 # Load oh-my-fish configuration.
 source $OMF_PATH/init.fish
 

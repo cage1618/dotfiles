@@ -1,62 +1,41 @@
 let s:curdir = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 
-" code fold
-set foldmethod=indent
-set foldlevel=99
-nnoremap <space> za
-
-" disable mouse
-" set mouse-=a
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=2
-
 " Set leader key
 let mapleader = ','
 
-" Plugin config
+" Load configs
 for fpath in split(globpath(expand(s:curdir.'/config'), '*.vim'), '\n')
   exe 'source' fpath
 endfor
 
+set mouse-=a
 set nocompatible
 set hidden
 set encoding=utf-8
 set termguicolors
-colorscheme one
-
-" cursor column and line
+" Highlight curcur
 set cursorcolumn
 set cursorline
-
-" pattern memeory in Kbyte
+" Max pattern match memory
 set maxmempattern=5000
-
-" backspace
-set backspace=indent,eol,start " backspace over everything in insert mode
-
-" faster
-"set ttyfast
 set lazyredraw
-
-" files syntax
-syntax on
-filetype plugin on
-
-" filetype plugin indent on
 set autoread
 set hlsearch
 set showmode
-
+colorscheme one
+" Code fold
+set foldmethod=indent
+set foldlevel=99
 " tab width
 set tabstop=4
 set shiftwidth=4
 set expandtab
 set autoindent
-
-" airline
-" Status line
-set statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %-14.(%l,%c%V%)\ %P
-" Always show the status line - use 2 lines for the status bar
-set laststatus=2
+" backspace
+set backspace=indent,eol,start " backspace over everything in insert mode
+" files syntax
+syntax on
+filetype plugin on
 
 " Add the virtualenv's site-packages to vim path
 if !has('nvim') && has('python')

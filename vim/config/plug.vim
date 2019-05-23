@@ -31,20 +31,10 @@ nnoremap <silent> <C-p> :FZF<CR>
 nnoremap <leader>bt :BTags<CR>
 nnoremap <leader>bl :BLines<CR>
 
-" Replaced by :FZF
-"
-" Plug 'kien/ctrlp.vim'
-" if executable("ag")
-"     set grepprg=ag\ --nogroup\ --nocolor
-"     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-"     let g:ctrlp_use_caching = 0
-" endif
-" " autocmd Filetype go let g:ctrlp_custom_ignore='\vvendor[\/]'
-" let g:ctrlp_user_command = 'find %s -type f | egrep -v "\.(git|svn|vagrant)/|(vendor|node_modules)/"'
-" set wildignore=*.swp,*.bak,*.pyc,*.class,.svn
+" System copy
+Plug 'christoomey/vim-system-copy'
 
-
-" color scheme
+" Color scheme
 Plug 'flazz/vim-colorschemes'
 Plug 'rakr/vim-one'
 Plug 'joshdick/onedark.vim'
@@ -54,9 +44,15 @@ let g:rehash256 = 1
 let g:one_allow_italics = 0
 set background=dark
 
-" file syntax
+
+" For tmux navigator Ctrl-hjkl
+Plug 'christoomey/vim-tmux-navigator'
+
+
+" Fish syntax
 " Plug 'sheerun/vim-polyglot'
 Plug 'vim-scripts/fish-syntax'
+
 
 " Linter
 Plug 'w0rp/ale'
@@ -69,9 +65,11 @@ let g:ale_go_golangci_lint_options = '--fast'
 let g:ale_python_flake8_options = '--ignore=F821,E501'
 let g:ale_python_pylint_options = '--disable=C0111,C0301,R0902,R0903,R0913,R0914,R0915,E1101,E1004'
 
+
 " Python code formatter
 Plug 'mindriot101/vim-yapf'
 autocmd FileType python nnoremap <leader>y :Yapf<Cr>
+
 
 " YouCompleteMe
 function! BuildYCM(info)
@@ -83,33 +81,29 @@ function! BuildYCM(info)
     !./install.py --go-completer --clang-completer
   endif
 endfunction
-
 Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
-"youcompleteme  默认tab  s-tab 和自动补全冲突
 " let g:ycm_key_list_select_completion=['<c-j>']
 " let g:ycm_key_list_previous_completion=['<c-k>']
-let g:ycm_complete_in_comments = 1  "在注释输入中也能补全
-let g:ycm_complete_in_strings = 1   "在字符串输入中也能补全
-let g:ycm_use_ultisnips_completer = 1 "提示UltiSnips
-let g:ycm_collect_identifiers_from_comments_and_strings = 1   "注释和字符串中的文字也会被收入补全
+let g:ycm_complete_in_comments = 1
+let g:ycm_complete_in_strings = 1
+let g:ycm_use_ultisnips_completer = 1
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_gocode_binary_path = '/Users/Liao/Projects/go/bin/gocode'
 let g:ycm_godef_binary_path = '/Users/Liao/Projects/go/bin/godef'
-let g:ycm_seed_identifiers_with_syntax=0   "语言关键字补全
+let g:ycm_seed_identifiers_with_syntax=0
 
 " Turn off scratch preview
 " set completeopt-=preview
-
+"
 " let g:ycm_goto_buffer_command = 'horizontal-split'
 " let g:ycm_goto_buffer_command = 'new-tab'
 let g:ycm_goto_buffer_command = 'vertical-split'
 " nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap <leader>gd :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>jd :YcmCompleter GoToDeclaration<CR>
-
-" 直接触发自动补全 insert模式下
+" invoke completion
 " let g:ycm_key_invoke_completion = '<C-Space>'
-" 黑名单,不启用
 let g:ycm_filetype_blacklist = {
       \ 'tagbar' : 1,
       \ 'gitcommit' : 1,
@@ -117,13 +111,12 @@ let g:ycm_filetype_blacklist = {
       \ 'ctrlp': 1
       \}
 
+
 " Ultimate Snippet
 " " Track the engine.
 Plug 'SirVer/ultisnips'
-
 " Snippets are separated from the engine. Add this if you want them:
 Plug 'honza/vim-snippets'
-
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
@@ -132,21 +125,23 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
+
 " Auto complete for quote marks
 Plug 'Raimondi/delimitMate'
 
-" auto complete for html/xml tags
+
+" Auto complete for html/xml tags
 Plug 'docunext/closetag.vim'
 let g:closetag_html_style=1
 
 
-" ################### 快速选中 ###################
-" 选中区块
+" Select in visual
 Plug 'terryma/vim-expand-region'
 " map + <Plug>(expand_region_expand)
 " map _ <Plug>(expand_region_shrink)
 vmap v <Plug>(expand_region_expand)
 vmap V <Plug>(expand_region_shrink)
+
 
 " Multi cursor
 Plug 'terryma/vim-multiple-cursors'
@@ -162,14 +157,19 @@ let g:multi_cursor_quit_key='<Esc>'
 Plug 'scrooloose/nerdcommenter'
 let g:NERDSpaceDelims=1
 
+
 " Modify surround characters
 Plug 'tpope/vim-surround'
+
+
 " For repeat -> enhance surround.vim, . to repeat command
 Plug 'tpope/vim-repeat'
 
-" Remove trailing whitespaces: [, + <Space>]
+
+" Remove trailing whitespaces
 Plug 'bronson/vim-trailing-whitespace'
 map <leader><space> :FixWhitespace<cr>
+
 
 " Align statements
 Plug 'junegunn/vim-easy-align'
@@ -179,6 +179,7 @@ if !exists('g:easy_align_delimiters')
   let g:easy_align_delimiters = {}
 endif
 let g:easy_align_delimiters['#'] = { 'pattern': '#', 'ignore_groups': ['String'] }
+
 
 " Show git diff
 Plug 'airblade/vim-gitgutter'
@@ -190,6 +191,7 @@ nnoremap <leader>gs :GitGutterToggle<CR>
 
 " Airline
 Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
@@ -197,7 +199,7 @@ let g:airline_theme='one'
 let g:airline#extensions#ale#enabled = 1
 
 
-" rainbow parentheses
+" Rainbow parentheses
 Plug 'luochen1990/rainbow'
 let g:rainbow_active = 0
 let g:rainbow_conf = {
@@ -223,11 +225,6 @@ let g:rainbow_conf = {
 \	}
 \}
 
-" Trun off auto toggle, cause conflicting with syntax color
-"au VimEnter * RainbowParenthesesToggle
-"au Syntax * RainbowParenthesesLoadRound
-"au Syntax * RainbowParenthesesLoadSquare
-"au Syntax * RainbowParenthesesLoadBraces
 
 " Nerdtree
 Plug 'scrooloose/nerdtree'
@@ -240,7 +237,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 let g:NERDTreeMapOpenSplit = 's'
 let g:NERDTreeMapOpenVSplit = 'v'
 
-
 Plug 'jistr/vim-nerdtree-tabs'
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
 " nerdtree synchronization
@@ -252,19 +248,17 @@ map <Leader>n <plug>NERDTreeTabsToggle<CR>
 " nerdtree git support
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
+
 " Vim tags
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 nmap <F9> :TagbarToggle<CR>
 let g:tagbar_sort = 0
 let g:tagbar_autofocus = 1
-
 " Stop gutentags getting upset in short-lived sessions
 " https://github.com/ludovicchabant/vim-gutentags/issues/178
  let g:gutentags_exclude_filetypes=['gitcommit']
 
-" For tmux navigator Ctrl-hjkl
-Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'thinca/vim-quickrun'
 let g:quickrun_config = {
@@ -371,9 +365,7 @@ nnoremap <leader>ig :IndentLinesToggle <CR>
 
 " ###### nginx #########
 Plug 'chr4/nginx.vim'
-
 Plug 'liaoishere/vim-puppet'
-
 " ###### tabline ######
 Plug 'mkitt/tabline.vim'
 
@@ -381,26 +373,22 @@ if !has('nvim')
     Plug 'ConradIrwin/vim-bracketed-paste'
 endif
 
-Plug 'sjl/gundo.vim'
-
-" #####  incsearch #####
-Plug 'haya14busa/incsearch.vim'
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
 " Plug 'haya14busa/is.vim'
-
 Plug 'haya14busa/is.vim'
+Plug 'haya14busa/vim-asterisk'
 Plug 'osyo-manga/vim-anzu'
 " mapping
 nmap n <Plug>(anzu-n-with-echo)
 nmap N <Plug>(anzu-N-with-echo)
-nmap * <Plug>(anzu-star-with-echo)
-nmap # <Plug>(anzu-sharp-with-echo)
+map *  <Plug>(asterisk-z*)<Plug>(is-nohl-1)
+map g* <Plug>(asterisk-gz*)<Plug>(is-nohl-1)
+map #  <Plug>(asterisk-z#)<Plug>(is-nohl-1)
+map g# <Plug>(asterisk-gz#)<Plug>(is-nohl-1)
 " clear status
 nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 " statusline
 set statusline=%{anzu#search_status()}
+
 
 " #### vim-signature ####
 Plug 'kshenoy/vim-signature'
@@ -408,8 +396,5 @@ Plug 'kshenoy/vim-signature'
 " #### Ag & Ack ####
 Plug 'rizzatti/dash.vim'
 
-Plug 'christoomey/vim-system-copy'
-
 call plug#end()
-
 filetype plugin on
