@@ -12,10 +12,6 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE=2
 " Set leader key
 let mapleader = ','
 
-" neo vim python provider
-let g:python_host_prog  = '/usr/local/bin/python'
-let g:python3_host_prog = '/usr/local/bin/python3'
-
 " Plugin config
 for fpath in split(globpath(expand(s:curdir.'/config'), '*.vim'), '\n')
   exe 'source' fpath
@@ -61,16 +57,6 @@ set autoindent
 set statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %-14.(%l,%c%V%)\ %P
 " Always show the status line - use 2 lines for the status bar
 set laststatus=2
-
-
-" 保存python文件时删除多余空格
-fun! <SID>StripTrailingWhitespaces()
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    call cursor(l, c)
-endfun
-autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
 " Add the virtualenv's site-packages to vim path
 if !has('nvim') && has('python')
