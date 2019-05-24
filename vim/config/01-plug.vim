@@ -299,10 +299,10 @@ let g:go_highlight_build_constraints = 1
 " jump to def in splited vertical window
 autocmd FileType go map <C-s>] <Plug>(go-def-vertical)
 autocmd FileType go map <C-s><C-]> <Plug>(go-def-vertical)
-autocmd FileType go map <C-x>] <Plug>(go-def-split)
-autocmd FileType go map <C-x><C-]> <Plug>(go-def-split)
-autocmd FileType go map <C-t>] <Plug>(go-def-tab)
-autocmd FileType go noremap <C-t><C-]> <Plug>(go-def-tab)
+" autocmd FileType go map <C-x>] <Plug>(go-def-split)
+" autocmd FileType go map <C-x><C-]> <Plug>(go-def-split)
+autocmd FileType go map <C-x>] <Plug>(go-def-tab)
+autocmd FileType go map <C-x><C-]> <Plug>(go-def-tab)
 
 autocmd FileType go noremap <leader>ga :GoAlternate<cr>
 autocmd FileType go noremap <leader>gi :GoInfo<cr>

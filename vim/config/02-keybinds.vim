@@ -31,12 +31,13 @@ cnoremap <C-e> <End>
 
 " F2 Toggle line numbers
 function! HideNumber()
-  if(&relativenumber == &number)
-    set relativenumber! number!
-  elseif(&number)
-    set number!
-  else
+  if(&relativenumber)
     set relativenumber!
+    if (&number)
+      set number!
+    endif
+  else
+    set number!
   endif
   set number?
 endfunc
@@ -49,23 +50,15 @@ noremap <F3> :ALEToggle<CR>
 noremap! <F3> <C-[>:ALEToggle<CR>
 
 " F4 Toggle text wrap
-noremap <F4> :call ToggleWrap()<CR>
-noremap! <F4> <C-[>:call ToggleWrap()<CR>
+noremap <F4> :set wrap! wrap?<CR>
+noremap! <F4> <C-[>:set wrap! wrap?<CR>
 
 " F5 Open Terminal
 if has('nvim')
-    noremap <F5> :terminal<CR>
+  noremap <F5> :terminal<CR>
 endif
 
 " F6 Toggle non-printable characters displaying
-function! ToggleWrap()
- if (&wrap == 1)
-   set nowrap
- else
-   set wrap
- endif
-endfunction
-
 noremap <F6> :set list! list?<CR>
 noremap! <F6> <C-[>:set list! list?<CR>
 

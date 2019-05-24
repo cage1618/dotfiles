@@ -1,5 +1,8 @@
 " File type specific configs
 
+" Vim
+autocmd FileType vim set tabstop=2 shiftwidth=2 expandtab ai
+
 " Python
 autocmd FileType python set tabstop=4 shiftwidth=4 expandtab ai
 autocmd FileType python let b:delimitMate_nesting_quotes = ['"']
