@@ -61,7 +61,7 @@ let g:ale_linters = {
 \   'go': ['golangci-lint'],
 \}
 let g:ale_go_golangci_lint_package = 1
-let g:ale_go_golangci_lint_options = '--fast'
+let g:ale_go_golangci_lint_options = '--fast -E golint --exclude-use-default=false'
 let g:ale_python_flake8_options = '--ignore=F821,E501'
 let g:ale_python_pylint_options = '--disable=C0111,C0301,R0902,R0903,R0913,R0914,R0915,E1101,E1004'
 
