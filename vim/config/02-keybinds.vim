@@ -53,18 +53,18 @@ noremap! <F3> <C-[>:ALEToggle<CR>a
 noremap <F4> :set wrap! wrap?<CR>
 noremap! <F4> <C-[>:set wrap! wrap?<CR>a
 
-" F5 Open Terminal
-if has('nvim')
-  noremap <F5> :terminal<CR>
-endif
+" F5 Toggle non-printable characters displaying
+noremap <F5> :set list! list?<CR>
+noremap! <F5> <C-[>:set list! list?<CR>a
 
-" F6 Toggle non-printable characters displaying
-noremap <F6> :set list! list?<CR>
-noremap! <F6> <C-[>:set list! list?<CR>a
-
-" F7 Toggle syntax
-noremap <F7> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
+" F6 Toggle syntax
+noremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 """
+
+" F7 Open Terminal
+if has('nvim')
+  noremap <F7> :terminal<CR>
+endif
 
 " Ctrl-n Toggle relative number
 function! NumberToggle()

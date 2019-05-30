@@ -271,23 +271,28 @@ let g:quickrun_no_default_key_mappings = 1
 nmap <Leader>r <Plug>(quickrun)
 map <F10> :QuickRun<CR>
 
+
 " ###### Python #########
 " for python.vim syntax highlight
 Plug 'hdima/python-syntax'
 let python_highlight_all = 1
 
+
 " ###### Golang #########
 Plug 'fatih/vim-go'
+let g:go_def_reuse_buffer = 1
 " let g:go_def_mode = 'guru'
 let g:go_def_mode = 'gopls'
-let g:go_info_mode = 'guru'
+let g:go_info_mode = 'gopls'
 let g:go_fmt_command = 'goimports'
 let g:go_metalinter_command = 'golangci-lint'
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 " let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'test']
-" let g:go_auto_sameids = 1
+" auto highlight same vars
+let g:go_auto_sameids = 1
+" map gd to go def
 " let g:go_def_mapping_enabled = 0
-let g:go_auto_type_info = 0
+let g:go_auto_type_info = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_fields = 1
