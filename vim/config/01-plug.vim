@@ -223,7 +223,7 @@ autocmd FileType go map <C-t><C-]> <Plug>(go-def-tab)
 
 autocmd FileType go noremap <leader>ga :GoAlternate<cr>
 autocmd FileType go noremap <leader>gi :GoInfo<cr>
-autocmd FileType go noremap <leader>gf :GoDecls<cr>
+autocmd FileType go noremap <leader>bt :GoDecls<cr>
 autocmd FileType go noremap <leader>b :GoBuild<cr>
 autocmd FileType go noremap <leader>r :GoRun<cr>
 
