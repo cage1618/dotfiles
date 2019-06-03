@@ -8,7 +8,8 @@ for fpath in split(globpath(expand(s:curdir.'/config'), '*.vim'), '\n')
   exe 'source' fpath
 endfor
 
-set mouse-=a
+" Options setup ============================================================={{{
+set mouse=a
 set nocompatible
 set hidden
 set encoding=utf-8
@@ -36,7 +37,9 @@ set backspace=indent,eol,start " backspace over everything in insert mode
 " files syntax
 syntax on
 filetype plugin on
+" }}}
 
+" Python virtualenv ========================================================={{{
 " Add the virtualenv's site-packages to vim path
 if !has('nvim') && has('python')
 py << EOF
@@ -50,3 +53,6 @@ if 'VIRTUAL_ENV' in os.environ:
     execfile(activate_this, dict(__file__=activate_this))
 EOF
 endif
+" }}}
+
+" vim: set fdl=0 fdm=marker:
