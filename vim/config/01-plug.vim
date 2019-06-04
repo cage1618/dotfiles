@@ -194,7 +194,6 @@ nnoremap <leader>ig :IndentLinesToggle <CR>
 " Golang ===================================================================={{{
 Plug 'fatih/vim-go'
 let g:go_def_reuse_buffer = 1
-" let g:go_def_mode = 'guru'
 let g:go_def_mode = 'gopls'
 let g:go_info_mode = 'gopls'
 let g:go_fmt_command = 'goimports'
@@ -224,6 +223,7 @@ autocmd FileType go map <C-t><C-]> <Plug>(go-def-tab)
 autocmd FileType go noremap <leader>ga :GoAlternate<cr>
 autocmd FileType go noremap <leader>gi :GoInfo<cr>
 autocmd FileType go noremap <leader>bt :GoDecls<cr>
+autocmd FileType go noremap <leader>gf :GoDeclsDir<cr>
 autocmd FileType go noremap <leader>b :GoBuild<cr>
 autocmd FileType go noremap <leader>r :GoRun<cr>
 
