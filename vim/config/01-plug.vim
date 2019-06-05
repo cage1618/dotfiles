@@ -373,7 +373,7 @@ let g:ycm_godef_binary_path = '/Users/Liao/Projects/go/bin/godef'
 let g:ycm_seed_identifiers_with_syntax=0
 
 " Turn off scratch preview
-" set completeopt-=preview
+set completeopt-=preview
 "
 " let g:ycm_goto_buffer_command = 'horizontal-split'
 " let g:ycm_goto_buffer_command = 'new-tab'
