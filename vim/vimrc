@@ -12,7 +12,7 @@ endfor
 set mouse=a
 set nocompatible
 set hidden
-set encoding=utf-8
+set encoding=UTF-8
 set termguicolors
 " Highlight curcur
 set cursorcolumn
@@ -39,6 +39,7 @@ syntax on
 filetype plugin on
 " }}}
 
+
 " Python virtualenv ========================================================={{{
 " Add the virtualenv's site-packages to vim path
 if !has('nvim') && has('python')
@@ -53,6 +54,34 @@ if 'VIRTUAL_ENV' in os.environ:
     execfile(activate_this, dict(__file__=activate_this))
 EOF
 endif
+" }}}
+
+
+" Defx setup ================================================================{{{
+call defx#custom#column('icon', {
+      \ 'directory_icon': '▸',
+      \ 'opened_icon': '▾',
+      \ 'root_icon': ' ',
+      \ })
+call defx#custom#column('filename', {
+      \ 'min_width': 40,
+      \ 'max_width': 40,
+      \ })
+call defx#custom#column('mark', {
+      \ 'readonly_icon': '✗',
+      \ 'selected_icon': '✓',
+      \ })
+call defx#custom#option('_', {
+      \ 'winwidth': 35,
+      \ 'columns': 'git:mark:indent:icons:filename:type',
+      \ 'split': 'vertical',
+      \ 'direction': 'topleft',
+      \ 'show_ignored_files': 0,
+      \ 'buffer_name': '',
+      \ 'toggle': 1,
+      \ 'resume': 1
+      \ })
+
 " }}}
 
 " vim: set fdl=0 fdm=marker:

@@ -130,27 +130,68 @@ nnoremap <leader>bl :BLines<CR>
 " }}}
 
 
-" Nerdtree =================================================================={{{
-Plug 'scrooloose/nerdtree'
-map <leader>n :NERDTreeToggle<CR>
-let NERDTreeHighlightCursorline=1
-let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
-"close vim if the only window left open is a NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
-" s/v to open file in split window
-let g:NERDTreeMapOpenSplit = 's'
-let g:NERDTreeMapOpenVSplit = 'v'
+" Defx ======================================================================{{{
+Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+map <silent> - :Defx<CR>
+" Avoid the white space highting issue
+autocmd FileType defx match ExtraWhitespace /^^/
+" Keymap in defx
+autocmd FileType defx call s:defx_my_settings()
+function! s:defx_my_settings() abort
+  IndentLinesDisable
+  setl nospell
+  setl signcolumn=no
+  setl nonumber
+  nnoremap <silent><buffer><expr> <CR>
+  \ defx#is_directory() ?
+  \ defx#do_action('open_or_close_tree') :
+  \ defx#do_action('drop',)
+  nmap <silent><buffer><expr> <2-LeftMouse>
+  \ defx#is_directory() ?
+  \ defx#do_action('open_or_close_tree') :
+  \ defx#do_action('drop',)
+  nnoremap <silent><buffer><expr> s defx#do_action('drop', 'split')
+  nnoremap <silent><buffer><expr> v defx#do_action('drop', 'vsplit')
+  nnoremap <silent><buffer><expr> O defx#do_action('open')
+  nnoremap <silent><buffer><expr> C defx#do_action('copy')
+  nnoremap <silent><buffer><expr> P defx#do_action('paste')
+  nnoremap <silent><buffer><expr> M defx#do_action('rename')
+  nnoremap <silent><buffer><expr> D defx#do_action('remove_trash')
+  nnoremap <silent><buffer><expr> A defx#do_action('new_multiple_files')
+  nnoremap <silent><buffer><expr> U defx#do_action('cd', ['..'])
+  nnoremap <silent><buffer><expr> . defx#do_action('toggle_ignored_files')
+  nnoremap <silent><buffer><expr> <Space> defx#do_action('toggle_select')
+  nnoremap <silent><buffer><expr> R defx#do_action('redraw')
+endfunction
 
-Plug 'jistr/vim-nerdtree-tabs'
-map <Leader>n <plug>NERDTreeTabsToggle<CR>
-" nerdtree synchronization
-"let g:nerdtree_tabs_synchronize_view=0
-"let g:nerdtree_tabs_synchronize_focus=0
-" auto start nerdtree
-"let g:nerdtree_tabs_open_on_console_startup=1
+" Defx git
+Plug 'kristijanhusak/defx-git'
+let g:defx_git#indicators = {
+  \ 'Modified'  : '✹',
+  \ 'Staged'    : '✚',
+  \ 'Untracked' : '✭',
+  \ 'Renamed'   : '➜',
+  \ 'Unmerged'  : '═',
+  \ 'Ignored'   : '☒',
+  \ 'Deleted'   : '✖',
+  \ 'Unknown'   : '?'
+  \ }
+let g:defx_git#column_length = 0
+hi def link Defx_filename_directory NERDTreeDirSlash
+hi def link Defx_git_Modified Special
+hi def link Defx_git_Staged Function
+hi def link Defx_git_Renamed Title
+hi def link Defx_git_Unmerged Label
+hi def link Defx_git_Untracked Tag
+hi def link Defx_git_Ignored Comment
 
-" nerdtree git support
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" Defx icons
+" Requires nerd-font, install at https://github.com/ryanoasis/nerd-fonts or
+" brew cask install font-hack-nerd-font
+" Then set non-ascii font to Driod sans mono for powerline in iTerm2
+Plug 'kristijanhusak/defx-icons'
+" disbale syntax highlighting to prevent performence issue
+let g:defx_icons_enable_syntax_highlight = 1
 
 " }}}
 
@@ -174,6 +215,7 @@ if !exists('g:airline_symbols')
 endif
 let g:airline_theme='one'
 let g:airline#extensions#ale#enabled = 1
+
 " }}}
 
 
