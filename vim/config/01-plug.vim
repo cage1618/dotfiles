@@ -45,6 +45,7 @@ Plug 'tpope/vim-repeat'
 " Remove trailing whitespaces
 Plug 'bronson/vim-trailing-whitespace'
 map <leader><space> :FixWhitespace<cr>
+let g:extra_whitespace_ignored_filetypes = ['defx']
 
 " Align statements
 Plug 'junegunn/vim-easy-align'
@@ -86,9 +87,6 @@ Plug 'mkitt/tabline.vim'
 
 " Dash integration
 Plug 'rizzatti/dash.vim'
-
-" Denite
-Plug 'Shougo/denite.nvim'
 
 " }}}
 
@@ -133,33 +131,27 @@ nnoremap <leader>bl :BLines<CR>
 
 
 " Nerdtree =================================================================={{{
-"  Plug 'scrooloose/nerdtree'
-"  map <leader>n :NERDTreeToggle<CR>
-"  let NERDTreeHighlightCursorline=1
-"  let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
-"  "close vim if the only window left open is a NERDTree
-"  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
-"  " s/v to open file in split window
-"  let g:NERDTreeMapOpenSplit = 's'
-"  let g:NERDTreeMapOpenVSplit = 'v'
-"
-"  Plug 'jistr/vim-nerdtree-tabs'
-"  map <Leader>n <plug>NERDTreeTabsToggle<CR>
-"  " nerdtree synchronization
-"  "let g:nerdtree_tabs_synchronize_view=0
-"  "let g:nerdtree_tabs_synchronize_focus=0
-"  " auto start nerdtree
-"  "let g:nerdtree_tabs_open_on_console_startup=1
-"
-"  " nerdtree git support
-"  Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'scrooloose/nerdtree'
+map <leader>n :NERDTreeToggle<CR>
+let NERDTreeHighlightCursorline=1
+let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
+"close vim if the only window left open is a NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
+" s/v to open file in split window
+let g:NERDTreeMapOpenSplit = 's'
+let g:NERDTreeMapOpenVSplit = 'v'
 
-" Defx
-if has('nvim')
-  Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/defx.nvim'
-endif
+Plug 'jistr/vim-nerdtree-tabs'
+map <Leader>n <plug>NERDTreeTabsToggle<CR>
+" nerdtree synchronization
+"let g:nerdtree_tabs_synchronize_view=0
+"let g:nerdtree_tabs_synchronize_focus=0
+" auto start nerdtree
+"let g:nerdtree_tabs_open_on_console_startup=1
+
+" nerdtree git support
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
 " }}}
 
 
