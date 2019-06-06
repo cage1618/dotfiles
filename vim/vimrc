@@ -1,4 +1,5 @@
 let s:curdir = fnamemodify(resolve(expand('<sfile>:p')), ':h')
+let &rtp.=','.s:curdir
 
 " Set leader key
 let mapleader = ','

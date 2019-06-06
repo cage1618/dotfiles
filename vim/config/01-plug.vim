@@ -152,7 +152,9 @@ function! s:defx_my_settings() abort
   \ defx#do_action('drop',)
   nnoremap <silent><buffer><expr> s defx#do_action('drop', 'split')
   nnoremap <silent><buffer><expr> v defx#do_action('drop', 'vsplit')
-  nnoremap <silent><buffer><expr> O defx#do_action('open')
+  nnoremap <silent><buffer><expr> t defx#do_action('drop', 'tabe')
+  nnoremap <silent><buffer><expr> o defx#do_action('open_tree')
+  nnoremap <silent><buffer><expr> O defx#do_action('open_tree_recursive')
   nnoremap <silent><buffer><expr> C defx#do_action('copy')
   nnoremap <silent><buffer><expr> P defx#do_action('paste')
   nnoremap <silent><buffer><expr> M defx#do_action('rename')
@@ -201,10 +203,13 @@ Plug 'flazz/vim-colorschemes'
 " Fix comment color of 'rakr/vim-one'
 Plug 'liaoishere/vim-one'
 Plug 'joshdick/onedark.vim'
+let g:one_allow_italics = 1
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'colepeters/spacemacs-theme.vim'
 Plug 'fatih/molokai'
 let g:molokai_original = 1
 let g:rehash256 = 1
-let g:one_allow_italics = 1
+
 set background=dark
 
 " Airline
