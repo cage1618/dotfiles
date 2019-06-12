@@ -22,7 +22,7 @@ noremap H ^
 noremap L $
 
 " Fold code
-nnoremap <space> za
+nnoremap <leader><space> za
 
 " Shortcut for command mode
 cnoremap <C-j> <Down>

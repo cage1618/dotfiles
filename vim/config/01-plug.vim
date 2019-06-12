@@ -252,12 +252,13 @@ let g:go_fmt_command = 'goimports'
 let g:go_metalinter_command = 'golangci-lint'
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 " let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'test']
+
 " auto highlight same vars
 let g:go_auto_sameids = 1
-" map gd to go def
-" let g:go_def_mapping_enabled = 0
+
 let g:go_auto_type_info = 1
 
+" enrich highlighting
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_fields = 1
@@ -266,18 +267,24 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_build_constraints = 1
-" jump to def in splited vertical window
-autocmd FileType go map <C-s>] <Plug>(go-def-vertical)
-autocmd FileType go map <C-s><C-]> <Plug>(go-def-vertical)
-autocmd FileType go map <C-t>] <Plug>(go-def-tab)
-autocmd FileType go map <C-t><C-]> <Plug>(go-def-tab)
 
-autocmd FileType go noremap <leader>ga :GoAlternate<cr>
-autocmd FileType go noremap <leader>gi :GoInfo<cr>
-autocmd FileType go noremap <leader>bt :GoDecls<cr>
-autocmd FileType go noremap <leader>gf :GoDeclsDir<cr>
-autocmd FileType go noremap <leader>b :GoBuild<cr>
-autocmd FileType go noremap <leader>r :GoRun<cr>
+" toggle the default go def mappings
+let g:go_def_mapping_enabled = 1
+
+" jump to def in splited vertical window
+autocmd FileType go map <buffer> <C-s><C-]> <Plug>(go-def-vertical)
+autocmd FileType go map <buffer> <C-s>] <Plug>(go-def-vertical)
+autocmd FileType go map <buffer> <C-t><C-]> <Plug>(go-def-tab)
+autocmd FileType go map <buffer> <C-t>] <Plug>(go-def-tab)
+autocmd FileType go map <buffer> <C-w><C-]> <Plug>(go-def-split)
+autocmd FileType go map <buffer> <C-w>] <Plug>(go-def-split)
+
+autocmd FileType go noremap <buffer> <leader>ga :GoAlternate<cr>
+autocmd FileType go noremap <buffer> <leader>gi :GoInfo<cr>
+autocmd FileType go noremap <buffer> <leader>bt :GoDecls<cr>
+autocmd FileType go noremap <buffer> <leader>gf :GoDeclsDir<cr>
+autocmd FileType go noremap <buffer> <leader>b :GoBuild<cr>
+autocmd FileType go noremap <buffer> <leader>r :GoRun<cr>
 
 autocmd FileType go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
 autocmd FileType go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
@@ -356,44 +363,183 @@ let g:ale_python_pylint_options = '--disable=C0111,C0301,R0902,R0903,R0913,R0914
 " }}}
 
 " YouCompleteMe ============================================================={{{
-function! BuildYCM(info)
-  " info is a dictionary with 3 fields
-  " - name:   name of the plugin
-  " - status: 'installed', 'updated', or 'unchanged'
-  " - force:  set on PlugInstall! or PlugUpdate!
-  if a:info.status == 'installed' || a:info.force
-    !./install.py --go-completer --clang-completer
+"# function! BuildYCM(info)
+"#   " info is a dictionary with 3 fields
+"#   " - name:   name of the plugin
+"#   " - status: 'installed', 'updated', or 'unchanged'
+"#   " - force:  set on PlugInstall! or PlugUpdate!
+"#   if a:info.status == 'installed' || a:info.force
+"#     !./install.py --go-completer --clang-completer
+"#   endif
+"# endfunction
+"# Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+"# " let g:ycm_key_list_select_completion=['<c-j>']
+"# " let g:ycm_key_list_previous_completion=['<c-k>']
+"# let g:ycm_complete_in_comments = 1
+"# let g:ycm_complete_in_strings = 1
+"# let g:ycm_use_ultisnips_completer = 1
+"# let g:ycm_collect_identifiers_from_comments_and_strings = 1
+"# let g:ycm_collect_identifiers_from_tags_files = 1
+"# let g:ycm_gocode_binary_path = '/Users/Liao/Projects/go/bin/gocode'
+"# let g:ycm_godef_binary_path = '/Users/Liao/Projects/go/bin/godef'
+"# let g:ycm_seed_identifiers_with_syntax=0
+"#
+"# " Turn off scratch preview
+"# set completeopt-=preview
+"# "
+"# " let g:ycm_goto_buffer_command = 'horizontal-split'
+"# " let g:ycm_goto_buffer_command = 'new-tab'
+"# let g:ycm_goto_buffer_command = 'vertical-split'
+"# " nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+"# nnoremap <leader>gd :YcmCompleter GoToDefinition<CR>
+"# nnoremap <leader>jd :YcmCompleter GoToDeclaration<CR>
+"# " invoke completion
+"# " let g:ycm_key_invoke_completion = '<C-Space>'
+"# let g:ycm_filetype_blacklist = {
+"#       \ 'tagbar' : 1,
+"#       \ 'gitcommit' : 1,
+"#       \ 'fzf': 1,
+"#       \ 'ctrlp': 1
+"#       \}
+"
+" }}}
+
+" coc.nvim =================================================================={{{
+" Installed extensions:
+" coc-snippets
+" coc-highlight
+" coc-yaml
+" coc-python
+" coc-json
+" coc-html
+" coc-css
+" coc-vimlsp
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+" Smaller updatetime for CursorHold & CursorHoldI
+set updatetime=300
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[c` and `]c` to navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+function! s:isGoFile()
+  for ft in g:extra_whitespace_ignored_filetypes
+    if 'go' ==# &filetype | return 0 | endif
+  endfor
+return 1
+endfunction
+" These two key map conflicts with vim-go, so skip them in go files
+autocmd * if <SID>isGoFile() | nmap <silent> <C-LeftMouse> <LeftMouse><Plug>(coc-definition) | endif
+autocmd * if <SID>isGoFile() | nmap <silent> g<LeftMouse> <LeftMouse><Plug>(coc-definition) | endif
+autocmd * if <SID>isGoFile() | nmap <silent> gd <Plug>(coc-definition) | endif
+
+nmap <silent> <M-LeftMouse> <LeftMouse><Plug>(coc-definition)
+nmap <silent> <leader>jd :<C-u>call CocAction('jumpDefinition', 'vsplit')<CR>
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
   endif
 endfunction
-Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
-" let g:ycm_key_list_select_completion=['<c-j>']
-" let g:ycm_key_list_previous_completion=['<c-k>']
-let g:ycm_complete_in_comments = 1
-let g:ycm_complete_in_strings = 1
-let g:ycm_use_ultisnips_completer = 1
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_gocode_binary_path = '/Users/Liao/Projects/go/bin/gocode'
-let g:ycm_godef_binary_path = '/Users/Liao/Projects/go/bin/godef'
-let g:ycm_seed_identifiers_with_syntax=0
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-" Turn off scratch preview
-set completeopt-=preview
-"
-" let g:ycm_goto_buffer_command = 'horizontal-split'
-" let g:ycm_goto_buffer_command = 'new-tab'
-let g:ycm_goto_buffer_command = 'vertical-split'
-" nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-nnoremap <leader>gd :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>jd :YcmCompleter GoToDeclaration<CR>
-" invoke completion
-" let g:ycm_key_invoke_completion = '<C-Space>'
-let g:ycm_filetype_blacklist = {
-      \ 'tagbar' : 1,
-      \ 'gitcommit' : 1,
-      \ 'fzf': 1,
-      \ 'ctrlp': 1
-      \}
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+" Use C to open coc config
+function! SetupCommandAbbrs(from, to)
+  exec 'cnoreabbrev <expr> '.a:from
+        \ .' ((getcmdtype() ==# ":" && getcmdline() ==# "'.a:from.'")'
+        \ .'? ("'.a:to.'") : ("'.a:from.'"))'
+endfunction
+call SetupCommandAbbrs('C', 'CocConfig')
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+" coc-snippets extension config
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+" coc-vimlsp extension config
+let g:markdown_fenced_languages = [
+      \ 'vim',
+      \ 'help'
+      \]
+
 " }}}
 
 " Ultimate Snippet =========================================================={{{

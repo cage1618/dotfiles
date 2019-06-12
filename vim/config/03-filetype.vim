@@ -34,6 +34,7 @@ autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 " Text ======================================================================{{{
 autocmd BufRead,BufNew *.md,*.mkd,*.markdown  set filetype=markdown.mkd
 autocmd FileType yaml set sw=2 sts=2 et
+autocmd FileType json syntax match Comment +\/\/.\+$+
 autocmd FileType puppet set sw=2 sts=2 et
 " }}}
 
