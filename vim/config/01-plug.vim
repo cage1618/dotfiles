@@ -13,6 +13,11 @@ endif
 " Modify surround characters
 Plug 'tpope/vim-surround'
 
+" Toggle location list or quickfix list
+Plug 'Valloric/ListToggle'
+let g:lt_location_list_toggle_map = '<leader>l'
+let g:lt_quickfix_list_toggle_map = '<leader>bq'
+
 " System copy
 Plug 'christoomey/vim-system-copy'
 
@@ -49,8 +54,8 @@ let g:extra_whitespace_ignored_filetypes = ['defx']
 
 " Align statements
 Plug 'junegunn/vim-easy-align'
-vmap <leader>a <Plug>(EasyAlign)
-nmap <leader>a <Plug>(EasyAlign)
+" vmap <leader>a <Plug>(EasyAlign)
+" nmap <leader>a <Plug>(EasyAlign)
 if !exists('g:easy_align_delimiters')
   let g:easy_align_delimiters = {}
 endif
@@ -60,7 +65,7 @@ let g:easy_align_delimiters['#'] = { 'pattern': '#', 'ignore_groups': ['String']
 Plug 'luochen1990/rainbow'
 let g:rainbow_active = 0
 let g:rainbow_conf = {
-\	'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+\	'guifgs':   ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
 \	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
 \	'operators': '_,_',
 \	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
@@ -82,8 +87,8 @@ let g:rainbow_conf = {
 \	}
 \}
 
-" Tabline
-Plug 'mkitt/tabline.vim'
+" Tabline in title, replaced by lightline
+" Plug 'mkitt/tabline.vim'
 
 " Dash integration
 Plug 'rizzatti/dash.vim'
@@ -92,7 +97,7 @@ Plug 'rizzatti/dash.vim'
 
 
 " Git ======================================================================={{{
-" Git wrapper
+" Git wrapper, show git blame, git branch, etc.
 Plug 'tpope/vim-fugitive'
 
 " Show git diff
@@ -127,6 +132,7 @@ command! -bang -nargs=* Rg
 nnoremap <silent> <C-p> :FZF<CR>
 nnoremap <leader>bt :BTags<CR>
 nnoremap <leader>bl :BLines<CR>
+nnoremap <leader>bf :Buffers<CR>
 " }}}
 
 
@@ -198,12 +204,97 @@ let g:defx_icons_enable_syntax_highlight = 1
 " }}}
 
 
+" Status line =============================================================0={{{
+" Airline
+"# Plug 'bling/vim-airline'
+"# Plug 'vim-airline/vim-airline-themes'
+"# if !exists('g:airline_symbols')
+"#     let g:airline_symbols = {}
+"# endif
+"# let g:airline_theme='one'
+"# let g:airline#extensions#ale#enabled = 1
+
+" Lightline
+Plug 'itchyny/lightline.vim'
+Plug 'maximbaz/lightline-ale'
+set laststatus=2
+set noshowmode
+
+" Show readonly
+function! LightlineReadonly()
+  return &readonly ? '' : ''
+endfunction
+" Show git branch
+function! LightlineFugitive()
+  if exists('*fugitive#head')
+    let branch = fugitive#head()
+    return branch !=# '' ? ' '.branch : ''
+  endif
+  return ''
+endfunction
+" Get current funtion symbol
+function! CocCurrentFunction()
+  return get(b:, 'coc_current_function', '')
+endfunction
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch'],
+      \             [ 'readonly', 'filename', 'modified' ],
+      \             ['cocstatus', 'currentfunction' ] ],
+      \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
+      \              [ 'lineinfo' ],
+      \              [ 'percent' ],
+      \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
+      \ },
+      \ 'component_function': {
+		  \   'readonly': 'LightlineReadonly',
+		  \   'gitbranch': 'LightlineFugitive',
+      \   'cocstatus': 'coc#status',
+      \   'currentfunction': 'CocCurrentFunction',
+      \ },
+      \ }
+
+" seperator
+let g:lightline.separator = { 'left': '', 'right': '' }
+let g:lightline.subseparator = { 'left': '', 'right': '' }
+
+" tabline
+let g:lightline.tabline = {
+    \   'left': [ ['tabs'] ],
+    \   'right': [ ['close'] ]
+    \ }
+let g:lightline.tab = {
+    \ 'active': [ 'tabnum', 'filename', 'modified' ],
+    \ 'inactive': [ 'tabnum', 'filename', 'modified' ] }
+set showtabline=2  " Show tabline
+
+" ALE linter info
+let g:lightline#ale#indicator_checking = "\uf110"
+let g:lightline#ale#indicator_warnings = "\uf071 "
+let g:lightline#ale#indicator_errors = "\uf05e "
+let g:lightline#ale#indicator_ok = "\uf00c"
+let g:lightline.component_expand = {
+      \   'linter_checking': 'lightline#ale#checking',
+      \   'linter_warnings': 'lightline#ale#warnings',
+      \   'linter_errors': 'lightline#ale#errors',
+      \   'linter_ok': 'lightline#ale#ok',
+      \ }
+let g:lightline.component_type = {
+      \   'linter_checking': 'left',
+      \   'linter_warnings': 'warning',
+      \   'linter_errors': 'error',
+      \   'linter_ok': 'left',
+      \ }
+" }}}
+
+
 " Color Themes =============================================================={{{
 Plug 'flazz/vim-colorschemes'
-" Fix comment color of 'rakr/vim-one'
-Plug 'liaoishere/vim-one'
-Plug 'joshdick/onedark.vim'
+Plug 'liaoishere/vim-one'        " Fix comment color of 'rakr/vim-one'
 let g:one_allow_italics = 1
+Plug 'joshdick/onedark.vim'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'colepeters/spacemacs-theme.vim'
 Plug 'fatih/molokai'
@@ -211,16 +302,6 @@ let g:molokai_original = 1
 let g:rehash256 = 1
 
 set background=dark
-
-" Airline
-Plug 'bling/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-let g:airline_theme='one'
-let g:airline#extensions#ale#enabled = 1
-
 " }}}
 
 
@@ -245,19 +326,6 @@ nnoremap <leader>ig :IndentLinesToggle <CR>
 
 " Golang ===================================================================={{{
 Plug 'fatih/vim-go'
-let g:go_def_reuse_buffer = 1
-let g:go_def_mode = 'gopls'
-let g:go_info_mode = 'gopls'
-let g:go_fmt_command = 'goimports'
-let g:go_metalinter_command = 'golangci-lint'
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-" let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'test']
-
-" auto highlight same vars
-let g:go_auto_sameids = 1
-
-let g:go_auto_type_info = 1
-
 " enrich highlighting
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
@@ -268,8 +336,18 @@ let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_build_constraints = 1
 
-" toggle the default go def mappings
-let g:go_def_mapping_enabled = 1
+let g:go_def_reuse_buffer = 1
+let g:go_def_mode = 'gopls'
+let g:go_info_mode = 'gopls'
+let g:go_fmt_command = 'goimports'
+let g:go_metalinter_command = 'golangci-lint'
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+" let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'test']
+
+let g:go_auto_sameids = 1           " auto highlight same vars
+let g:go_auto_type_info = 1         " auto show the type info of cusor
+let g:go_def_mapping_enabled = 1    " toggle the default go def mappings
+let g:go_doc_keywordprg_enabled = 1 " toggle GoDoc mapping
 
 " jump to def in splited vertical window
 autocmd FileType go map <buffer> <C-s><C-]> <Plug>(go-def-vertical)
@@ -282,7 +360,7 @@ autocmd FileType go map <buffer> <C-w>] <Plug>(go-def-split)
 autocmd FileType go noremap <buffer> <leader>ga :GoAlternate<cr>
 autocmd FileType go noremap <buffer> <leader>gi :GoInfo<cr>
 autocmd FileType go noremap <buffer> <leader>bt :GoDecls<cr>
-autocmd FileType go noremap <buffer> <leader>gf :GoDeclsDir<cr>
+autocmd FileType go noremap <buffer> <leader>gt :GoDeclsDir<cr>
 autocmd FileType go noremap <buffer> <leader>b :GoBuild<cr>
 autocmd FileType go noremap <buffer> <leader>r :GoRun<cr>
 
@@ -353,13 +431,16 @@ Plug 'chr4/nginx.vim'
 " Linters ==================================================================={{{
 Plug 'w0rp/ale'
 let g:ale_linters = {
-\   'python': ['flake8', 'pylint'],
-\   'go': ['golangci-lint'],
-\}
+      \   'python': ['flake8', 'pylint'],
+      \   'go': ['golangci-lint'],
+      \ }
 let g:ale_go_golangci_lint_package = 1
 let g:ale_go_golangci_lint_options = '--fast -E golint --exclude-use-default=false'
 let g:ale_python_flake8_options = '--ignore=F821,E501'
 let g:ale_python_pylint_options = '--disable=C0111,C0301,R0902,R0903,R0913,R0914,R0915,E1101,E1004'
+let g:ale_sign_error = '⤫'
+let g:ale_sign_warning = '⚠'
+
 " }}}
 
 " YouCompleteMe ============================================================={{{
@@ -419,6 +500,7 @@ Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
 set updatetime=300
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
+set signcolumn=yes
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -443,17 +525,20 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
-" Remap keys for gotos
-function! s:isGoFile()
-  for ft in g:extra_whitespace_ignored_filetypes
-    if 'go' ==# &filetype | return 0 | endif
+" some key map conflicts with other plugins(e.g. vim-go), so skip specific
+" type of files
+let s:exclude_files = ['go']
+function! s:nonGoFile()
+  for ft in s:exclude_files
+    if ft ==# &filetype | return 0 | endif
   endfor
-return 1
+  return 1
 endfunction
-" These two key map conflicts with vim-go, so skip them in go files
-autocmd * if <SID>isGoFile() | nmap <silent> <C-LeftMouse> <LeftMouse><Plug>(coc-definition) | endif
-autocmd * if <SID>isGoFile() | nmap <silent> g<LeftMouse> <LeftMouse><Plug>(coc-definition) | endif
-autocmd * if <SID>isGoFile() | nmap <silent> gd <Plug>(coc-definition) | endif
+autocmd BufRead,BufNew * if <SID>nonGoFile() |
+      \ nmap <silent> <C-LeftMouse> <LeftMouse><Plug>(coc-definition) | endif
+autocmd BufRead,BufNew * if <SID>nonGoFile() |
+      \ nmap <silent> g<LeftMouse> <LeftMouse><Plug>(coc-definition) | endif
+autocmd BufRead,BufNew * if <SID>nonGoFile() | nmap <silent> gd <Plug>(coc-definition) | endif
 
 nmap <silent> <M-LeftMouse> <LeftMouse><Plug>(coc-definition)
 nmap <silent> <leader>jd :<C-u>call CocAction('jumpDefinition', 'vsplit')<CR>
@@ -506,21 +591,21 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 
 " Using CocList
 " Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <leader><space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+nnoremap <silent> <leader><space>e  :<C-u>CocList extensions<cr>
 " Show commands
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+nnoremap <silent> <leader><space>c  :<C-u>CocList commands<cr>
 " Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+nnoremap <silent> <leader><space>o  :<C-u>CocList outline<cr>
 " Search workspace symbols
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+nnoremap <silent> <leader><space>s  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+nnoremap <silent> <leader><space>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+nnoremap <silent> <leader><space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+nnoremap <silent> <leader><space>p  :<C-u>CocListResume<CR>
 
 " coc-snippets extension config
 " Use <C-l> for trigger snippet expand.

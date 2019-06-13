@@ -22,7 +22,7 @@ noremap H ^
 noremap L $
 
 " Fold code
-nnoremap <leader><space> za
+nnoremap <space> za
 
 " Shortcut for command mode
 cnoremap <C-j> <Down>
@@ -112,21 +112,6 @@ noremap <leader>7 7gt
 noremap <leader>8 8gt
 noremap <leader>9 9gt
 noremap <leader>0 :tablast<cr>
-" }}}
-
-" Buffer access ============================================================={{{
-nnoremap <leader>l :ls<CR>
-nnoremap <leader>bp :bp<CR>
-nnoremap <leader>bn :bn<CR>
-nnoremap <leader>b1 :1b<CR>
-nnoremap <leader>b2 :2b<CR>
-nnoremap <leader>b3 :3b<CR>
-nnoremap <leader>b4 :4b<CR>
-nnoremap <leader>b5 :5b<CR>
-nnoremap <leader>b6 :6b<CR>
-nnoremap <leader>b7 :7b<CR>
-nnoremap <leader>b8 :8b<CR>
-nnoremap <leader>b9 :9b<CR>
 " }}}
 
 " vim: set fdl=0 fdm=marker:

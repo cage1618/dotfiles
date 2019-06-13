@@ -1,11 +1,14 @@
 {
+  // update funtion symbol for statusline
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+  "coc.preferences.colorSupport": true,
   "suggest.enablePreview": true,
   "suggest.echodocSupport": true,
   "diagnostic.displayByAle": true,
   // go languageserver
   "languageserver": {
     "golang": {
-      "command": "gopls",
+      "command": "/Users/Liao/Projects/go/bin/gopls",
       "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
       "filetypes": ["go"]
     }
