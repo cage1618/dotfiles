@@ -85,4 +85,10 @@ call defx#custom#option('_', {
 
 " }}}
 
+
+" coc.nvim setup ============================================================{{{
+" highlight text
+hi default CocHighlightText guibg=#181a1f
+hi default CocHighlightText ctermbg=#181a1f
+" }}}
 " vim: set fdl=0 fdm=marker:

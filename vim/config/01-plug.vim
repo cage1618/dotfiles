@@ -344,7 +344,7 @@ let g:go_metalinter_command = 'golangci-lint'
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 " let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'test']
 
-let g:go_auto_sameids = 1           " auto highlight same vars
+" let g:go_auto_sameids = 1           " auto highlight same vars
 let g:go_auto_type_info = 1         " auto show the type info of cusor
 let g:go_def_mapping_enabled = 1    " toggle the default go def mappings
 let g:go_doc_keywordprg_enabled = 1 " toggle GoDoc mapping
@@ -557,7 +557,7 @@ endfunction
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 " Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
+autocmd CursorHold * call CocActionAsync('highlight')
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
