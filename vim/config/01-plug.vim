@@ -257,8 +257,8 @@ let g:lightline = {
       \ }
 
 " seperator
-let g:lightline.separator = { 'left': '', 'right': '' }
-let g:lightline.subseparator = { 'left': '', 'right': '' }
+" let g:lightline.separator = { 'left': '', 'right': '' }
+" let g:lightline.subseparator = { 'left': '', 'right': '' }
 
 " tabline
 let g:lightline.tabline = {
@@ -332,7 +332,6 @@ let g:go_highlight_methods = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_types = 1
 let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_build_constraints = 1
 
@@ -350,12 +349,12 @@ let g:go_def_mapping_enabled = 1    " toggle the default go def mappings
 let g:go_doc_keywordprg_enabled = 1 " toggle GoDoc mapping
 
 " jump to def in splited vertical window
-autocmd FileType go map <buffer> <C-s><C-]> <Plug>(go-def-vertical)
-autocmd FileType go map <buffer> <C-s>] <Plug>(go-def-vertical)
-autocmd FileType go map <buffer> <C-t><C-]> <Plug>(go-def-tab)
-autocmd FileType go map <buffer> <C-t>] <Plug>(go-def-tab)
-autocmd FileType go map <buffer> <C-w><C-]> <Plug>(go-def-split)
-autocmd FileType go map <buffer> <C-w>] <Plug>(go-def-split)
+autocmd FileType go map <buffer> <silent> <C-s><C-]> <Plug>(go-def-vertical)
+autocmd FileType go map <buffer> <silent> <C-s>] <Plug>(go-def-vertical)
+autocmd FileType go map <buffer> <silent> <C-t><C-]> <Plug>(go-def-tab)
+autocmd FileType go map <buffer> <silent> <C-t>] <Plug>(go-def-tab)
+autocmd FileType go map <buffer> <silent> <C-w><C-]> <Plug>(go-def-split)
+autocmd FileType go map <buffer> <silent> <C-w>] <Plug>(go-def-split)
 
 autocmd FileType go noremap <buffer> <leader>ga :GoAlternate<cr>
 autocmd FileType go noremap <buffer> <leader>gi :GoInfo<cr>
