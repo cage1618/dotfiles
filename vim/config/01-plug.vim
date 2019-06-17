@@ -241,7 +241,7 @@ let g:lightline = {
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch'],
-      \             [ 'readonly', 'filename', 'modified' ],
+      \             [ 'readonly', 'relativepath', 'modified' ],
       \             ['cocstatus', 'currentfunction' ] ],
       \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
       \              [ 'lineinfo' ],
@@ -260,16 +260,6 @@ let g:lightline = {
 " let g:lightline.separator = { 'left': '', 'right': '' }
 " let g:lightline.subseparator = { 'left': '', 'right': '' }
 
-" tabline
-let g:lightline.tabline = {
-    \   'left': [ ['tabs'] ],
-    \   'right': [ ['close'] ]
-    \ }
-let g:lightline.tab = {
-    \ 'active': [ 'tabnum', 'filename', 'modified' ],
-    \ 'inactive': [ 'tabnum', 'filename', 'modified' ] }
-set showtabline=2  " Show tabline
-
 " ALE linter info
 let g:lightline#ale#indicator_checking = "\uf110"
 let g:lightline#ale#indicator_warnings = "\uf071 "
@@ -287,6 +277,62 @@ let g:lightline.component_type = {
       \   'linter_errors': 'error',
       \   'linter_ok': 'left',
       \ }
+
+
+" tabline
+set showtabline=2  " Show tabline
+let g:lightline.tabline = {
+    \   'left': [ ['tabs'] ],
+    \   'right': [ ['close'] ]
+    \ }
+let g:lightline.tab_component_function = {
+      \   'shortpath': 'ShortPath',
+      \}
+let g:lightline.tab = {
+    \ 'active': [ 'tabnum', 'shortpath', 'modified' ],
+    \ 'inactive': [ 'tabnum', 'filename', 'modified' ] }
+
+function! ShortPath(n) abort
+  " Partly copied from powerline code:
+  " https://github.com/admc/dotfiles/blob/master/.vim/autoload/Powerline/Functions.vim#L25
+  " Display a short path where the first directory is displayed with its
+  " full name, and the subsequent directories are shortened to their
+  " first letter, i.e. "/home/user/foo/foo/bar/baz.vim" becomes
+  " "~/foo/f/b/baz.vim"
+
+  let buflist = tabpagebuflist(a:n)
+  let winnr = tabpagewinnr(a:n)
+  let filename = expand('#'.buflist[winnr - 1].':t')
+  if filename ==# ''
+    return '[No Name]'
+  endif
+
+  let exclude_files = ['gitcommit']
+  for ft in exclude_files
+    if ft ==# &filetype
+      return filename
+    endif
+  endfor
+
+  " Check if buffer is a terminal
+  if &buftype ==# 'terminal'
+    return filename
+  endif
+
+  let dirsep = has('win32') && ! &shellslash ? '\' : '/'
+	let filepath = expand('%:p')
+  " This displays the shortest possible path, relative to ~ or the
+  " current directory.
+  let mod = (exists('+acd') && &acd) ? ':~:h' : ':~:.:h'
+  let fpath = split(fnamemodify(filepath, mod), dirsep)
+  let fpath_shortparts = map(fpath[1:], 'v:val[0]')
+  let short_path = join(extend([fpath[0]], fpath_shortparts), dirsep) . dirsep
+  if short_path == ('.' . dirsep)
+		let short_path = ''
+	endif
+  return short_path . filename
+endfunction
+
 " }}}
 
 
