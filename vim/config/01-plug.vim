@@ -321,6 +321,9 @@ function! ShortPath(n) abort
 
   let dirsep = has('win32') && ! &shellslash ? '\' : '/'
 	let filepath = expand('%:p')
+  if empty(filepath)
+    return filename
+  endif
   " This displays the shortest possible path, relative to ~ or the
   " current directory.
   let mod = (exists('+acd') && &acd) ? ':~:h' : ':~:.:h'
@@ -686,11 +689,13 @@ let g:UltiSnipsEditSplit="vertical"
 " }}}
 
 " Code tags ================================================================={{{
-Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 nmap <F9> :TagbarToggle<CR>
 let g:tagbar_sort = 0
 let g:tagbar_autofocus = 1
+
+" Re-generate the tag file on save
+Plug 'ludovicchabant/vim-gutentags'
 " Stop gutentags getting upset in short-lived sessions
 " https://github.com/ludovicchabant/vim-gutentags/issues/178
  let g:gutentags_exclude_filetypes=['gitcommit']
