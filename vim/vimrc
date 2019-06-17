@@ -10,6 +10,7 @@ for fpath in split(globpath(expand(s:curdir.'/config'), '*.vim'), '\n')
 endfor
 
 " Options setup ============================================================={{{
+
 set mouse=a
 set nocompatible
 set hidden
@@ -38,10 +39,12 @@ set backspace=indent,eol,start " backspace over everything in insert mode
 " files syntax
 syntax on
 filetype plugin on
+
 " }}}
 
 
 " Python virtualenv ========================================================={{{
+
 " Add the virtualenv's site-packages to vim path
 if !has('nvim') && has('python')
 py << EOF
@@ -55,10 +58,12 @@ if 'VIRTUAL_ENV' in os.environ:
     execfile(activate_this, dict(__file__=activate_this))
 EOF
 endif
+
 " }}}
 
 
 " Defx setup ================================================================{{{
+
 call defx#custom#column('icon', {
       \ 'directory_icon': '▸',
       \ 'opened_icon': '▾',
@@ -87,9 +92,21 @@ call defx#custom#option('_', {
 
 
 " coc.nvim setup ============================================================{{{
-" highlight text
+
+" highlight text for cursor holding
 hi default CocHighlightText guibg=#8a8a8a guifg=#211F1C
 hi default CocHighlightText ctermbg=#8a8a8a ctermfg=#211F1C
+
+" }}}
+
+
+" lightline setup ==========================================================={{{
+
+" wombat tabline colorscheme customization
+let s:palette = g:lightline#colorscheme#wombat#palette
+let s:palette.tabline.tabsel = [ [ '#242424', '#8ac6f2', 235, 117, 'bold' ] ]
+unlet s:palette
+
 " }}}
 
 " vim: set fdl=0 fdm=marker:
