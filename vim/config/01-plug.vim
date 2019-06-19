@@ -307,7 +307,7 @@ function! ShortPath(n) abort
     return '[No Name]'
   endif
 
-  let exclude_files = ['gitcommit']
+  let exclude_files = ['gitcommit', 'defx']
   for ft in exclude_files
     if ft ==# &filetype
       return filename
