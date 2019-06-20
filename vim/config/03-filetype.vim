@@ -18,6 +18,11 @@ endfunc
 autocmd FileType python nnoremap <leader>b :call ColorColumn()<cr>
 " }}}
 
+" JS ===================================================================={{{
+autocmd FileType javascript set tabstop=2 shiftwidth=2 expandtab ai
+autocmd FileType typescript set tabstop=2 shiftwidth=2 expandtab ai
+" }}}
+
 " Ruby ======================================================================{{{
 if v:version >= 703
   " Note: Relative number is quite slow with Ruby, so is cursorline

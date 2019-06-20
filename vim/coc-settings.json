@@ -24,5 +24,16 @@
   ],
   // coc-viml config
   "vimlsp.debug": false,
-  "vimlsp.trace.server": "off"
+  "vimlsp.trace.server": "off",
+  // coc-list
+  "list.normalMappings": {
+    "t": "action:tabe",
+    "v": "action:vsplit",
+    "s": "action:split",
+    "d": "expr:GetDeleteAction"
+  },
+  "list.insertMappings": {
+    "<C-t>": "action:tabe",
+    "<C-w>": "command:wincmd k"
+  }
 }

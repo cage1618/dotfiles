@@ -234,7 +234,8 @@ function! LightlineFugitive()
 endfunction
 " Get current funtion symbol
 function! CocCurrentFunction()
-  return get(b:, 'coc_current_function', '')
+  let currentFunctionSymbol = get(b:, 'coc_current_function', '')
+  return currentFunctionSymbol !=# '' ? "\uf6a6 " .currentFunctionSymbol : ''
 endfunction
 let g:lightline = {
       \ 'colorscheme': 'wombat',
@@ -442,6 +443,7 @@ Plug 'vim-ruby/vim-ruby'
 " HTML/JS/CSS ==============================================================={{{
 
 " Javascript
+Plug 'leafgarland/typescript-vim'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'pangloss/vim-javascript'
 let g:html_indent_inctags = "html,body,head,tbody"
@@ -543,7 +545,9 @@ let g:ale_sign_warning = '⚠'
 " coc-html
 " coc-css
 " coc-vimlsp
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+" coc-tsserver
+" coc-tslint-plugin
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Smaller updatetime for CursorHold & CursorHoldI
 set updatetime=300
 " don't give |ins-completion-menu| messages.
