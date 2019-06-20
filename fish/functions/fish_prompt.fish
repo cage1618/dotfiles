@@ -4,8 +4,8 @@
 #   set -g theme_display_git_untracked no
 
 function _git_branch_name
-  echo (command git symbolic-ref HEAD ^/dev/null; \
-       or command git rev-parse --short HEAD ^/dev/null) \
+  echo (command git symbolic-ref HEAD 2> /dev/null; \
+       or command git rev-parse --short HEAD 2> /dev/null) \
        | sed -e 's|^refs/heads/||'
 end
 
