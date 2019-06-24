@@ -393,10 +393,10 @@ let g:go_metalinter_command = 'golangci-lint'
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 " let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'test']
 
-" let g:go_auto_sameids = 1           " auto highlight same vars
-let g:go_auto_type_info = 1         " auto show the type info of cusor
+let g:go_auto_sameids = 0           " auto highlight same vars
+let g:go_auto_type_info = 0         " auto show the type info of cusor
 let g:go_def_mapping_enabled = 1    " toggle the default go def mappings
-let g:go_doc_keywordprg_enabled = 1 " toggle GoDoc mapping
+let g:go_doc_keywordprg_enabled = 0 " map K to :GoDoc, use coc-action-doHover instead
 
 " jump to def in splited vertical window
 autocmd FileType go map <buffer> <silent> <C-s><C-]> <Plug>(go-def-vertical)
