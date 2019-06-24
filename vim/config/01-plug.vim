@@ -235,7 +235,7 @@ endfunction
 " Get current funtion symbol
 function! CocCurrentFunction()
   let currentFunctionSymbol = get(b:, 'coc_current_function', '')
-  return currentFunctionSymbol !=# '' ? "\uf6a6 " .currentFunctionSymbol : ''
+  return currentFunctionSymbol !=# '' ? " " .currentFunctionSymbol : ''
 endfunction
 let g:lightline = {
       \ 'colorscheme': 'wombat',
