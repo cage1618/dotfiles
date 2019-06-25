@@ -80,7 +80,7 @@ hi default CocHighlightText ctermbg=#8a8a8a ctermfg=#211F1C
 
 " color for coc-diagnostic
 hi link CocErrorSign Error
-hi link CocWarningSign WarningMsg
+hi link CocWarningSign ALEWarningSign
 
 " }}}
 
