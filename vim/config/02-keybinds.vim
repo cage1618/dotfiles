@@ -114,16 +114,4 @@ noremap <leader>9 9gt
 noremap <leader>0 :tablast<cr>
 " }}}
 
-" Terminal mode mapping
-" escape key
-tnoremap <Esc> <C-\><C-n>
-" use Meta-[ for C-v<Esc> to send esc to terminal programs
-tnoremap <M-[> <Esc>
-tnoremap <C-v><Esc> <Esc>
-" windows navigation
-tnoremap <C-h> <c-\><c-n><c-w>h
-tnoremap <C-j> <c-\><c-n><c-w>j
-tnoremap <C-k> <c-\><c-n><c-w>k
-tnoremap <C-l> <c-\><c-n><c-w>l
-
 " vim: set fdl=0 fdm=marker:
