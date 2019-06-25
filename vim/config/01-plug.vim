@@ -587,10 +587,10 @@ function! s:nonGoFile()
   return 1
 endfunction
 autocmd BufRead,BufNew * if <SID>nonGoFile() |
-      \ nmap <silent> <C-LeftMouse> <LeftMouse><Plug>(coc-definition) | endif
+      \ nmap <silent> <C-LeftMouse> <LeftMouse><Plug>(coc-definition)| endif
 autocmd BufRead,BufNew * if <SID>nonGoFile() |
-      \ nmap <silent> g<LeftMouse> <LeftMouse><Plug>(coc-definition) | endif
-autocmd BufRead,BufNew * if <SID>nonGoFile() | nmap <silent> gd <Plug>(coc-definition) | endif
+      \ nmap <silent> g<LeftMouse> <LeftMouse><Plug>(coc-definition)| endif
+autocmd BufRead,BufNew * if <SID>nonGoFile() | nmap <silent> gd <Plug>(coc-definition)| endif
 
 nmap <silent> <M-LeftMouse> <LeftMouse><Plug>(coc-definition)
 nmap <silent> <leader>jd :<C-u>call CocAction('jumpDefinition', 'vsplit')<CR>
