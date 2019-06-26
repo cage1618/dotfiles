@@ -405,9 +405,17 @@ let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 " let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'test']
 
 let g:go_auto_sameids = 0           " auto highlight same vars
-let g:go_auto_type_info = 0         " auto show the type info of cusor
 let g:go_def_mapping_enabled = 1    " toggle the default go def mappings
-let g:go_doc_keywordprg_enabled = 0 " map K to :GoDoc, use coc-action-doHover instead
+
+" Turn on auto typeinfo and K mapping if floating window is not supported
+" FIXME: remove this block after neovim stable version 4.0 comes
+if !exists('*nvim_open_win')
+  let g:go_auto_type_info = 1         " auto show the type info of cusor
+  let g:go_doc_keywordprg_enabled = 1 " map K to :GoDoc, use coc-action-doHover instead
+else
+  let g:go_auto_type_info = 0         " auto show the type info of cusor
+  let g:go_doc_keywordprg_enabled = 0 " map K to :GoDoc, use coc-action-doHover instead
+endif
 
 " jump to def in splited vertical window
 autocmd FileType go map <buffer> <silent> <C-s><C-]> <Plug>(go-def-vertical)
