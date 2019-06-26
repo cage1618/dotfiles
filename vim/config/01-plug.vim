@@ -224,6 +224,7 @@ set noshowmode
 function! LightlineReadonly()
   return &readonly ? '' : ''
 endfunction
+
 " Show git branch
 function! LightlineFugitive()
   if exists('*fugitive#head')
@@ -232,11 +233,20 @@ function! LightlineFugitive()
   endif
   return ''
 endfunction
+
+" Git blame message
+function! LightlineGitBlame() abort
+  let blame = get(b:, 'coc_git_blame', '')
+  " return blame
+  return winwidth(0) > 120 ? blame : ''
+endfunction
+
 " Get current funtion symbol
 function! CocCurrentFunction()
   let currentFunctionSymbol = get(b:, 'coc_current_function', '')
   return currentFunctionSymbol !=# '' ? " " .currentFunctionSymbol : ''
 endfunction
+
 let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ 'active': {
@@ -247,12 +257,13 @@ let g:lightline = {
       \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
       \              [ 'lineinfo' ],
       \              [ 'percent' ],
-      \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
+      \              [ 'fileformat', 'fileencoding', 'filetype' ], ['blame'] ]
       \ },
       \ 'component_function': {
 		  \   'readonly': 'LightlineReadonly',
 		  \   'gitbranch': 'LightlineFugitive',
       \   'cocstatus': 'coc#status',
+      \   'blame': 'LightlineGitBlame',
       \   'currentfunction': 'CocCurrentFunction',
       \ },
       \ }
@@ -491,6 +502,12 @@ let g:ale_python_pylint_options = '--disable=C0111,C0301,R0902,R0903,R0913,R0914
 let g:ale_sign_error = '⤫'
 let g:ale_sign_warning = '⚠'
 
+" virtual text, conflicts with coc-git
+" let g:ale_virtualtext_cursor = 1
+" let g:ale_virtualtext_prefix = '    > '
+" hi link ALEError ALEErrorSign
+" hi link ALEWarning ALEWarningSign
+
 " }}}
 
 " YouCompleteMe ============================================================={{{
@@ -548,6 +565,7 @@ let g:ale_sign_warning = '⚠'
 " coc-tsserver
 " coc-tslint-plugin
 " coc-pair
+" coc-git
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Smaller updatetime for CursorHold & CursorHoldI
 set updatetime=300

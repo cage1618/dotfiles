@@ -35,5 +35,13 @@
   "list.insertMappings": {
     "<C-t>": "action:tabe",
     "<C-w>": "command:wincmd k"
-  }
+  },
+  // coc-git
+  "git.addedSign.hlGroup": "GitGutterAdd",
+  "git.changedSign.hlGroup": "GitGutterChange",
+  "git.removedSign.hlGroup": "GitGutterDelete",
+  "git.topRemovedSign.hlGroup": "GitGutterDelete",
+  "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
+  "git.addGlameToVirtualText": true,
+  "git.addGlameToBufferVar": true
 }
