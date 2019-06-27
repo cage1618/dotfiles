@@ -11,6 +11,7 @@ endfor
 
 " Options setup ============================================================={{{
 
+colorscheme one
 set mouse=a
 set nocompatible
 set hidden
@@ -25,7 +26,6 @@ set lazyredraw
 set autoread
 set hlsearch
 set showmode
-colorscheme one
 " Code fold
 set foldmethod=indent
 set foldlevel=99

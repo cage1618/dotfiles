@@ -57,6 +57,3 @@ alias pushorigin='git push origin --set-upstream $(git branch | grep "^*" | tr -
 
 # vg
 command -v vg >/dev/null 2>&1 && eval "$(vg eval --shell zsh)"
-
-# work
-[ -f ~/.zsh_xsky.zsh ] && source ~/.zsh_xsky.zsh
