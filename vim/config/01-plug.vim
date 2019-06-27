@@ -593,6 +593,7 @@ let g:ale_sign_warning = '⚠'
 
 " coc.nvim =================================================================={{{
 " Installed extensions:
+" coc-lists
 " coc-snippets
 " coc-highlight
 " coc-yaml
@@ -730,6 +731,8 @@ nnoremap <silent> <leader><space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <leader><space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <leader><space>p  :<C-u>CocListResume<CR>
+" Yank list
+nnoremap <silent> <leader><space>y  :<C-u>CocList -A --normal yank<cr>
 
 " coc-snippets extension config
 " Use <C-l> for trigger snippet expand.

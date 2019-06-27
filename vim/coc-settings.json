@@ -27,13 +27,21 @@
   "vimlsp.trace.server": "off",
   // coc-list
   "list.normalMappings": {
+    "<C-n>": "normal:j",
+    "<C-p>": "normal:k",
     "t": "action:tabe",
     "v": "action:vsplit",
     "s": "action:split",
     "d": "expr:GetDeleteAction"
   },
   "list.insertMappings": {
+    "<C-r>": "do:refresh",
+    "<C-m>": "do:switch",
+    "<C-n>": "normal:j",
+    "<C-p>": "normal:k",
     "<C-t>": "action:tabe",
+    "<C-v>": "action:vsplit",
+    "<C-s>": "action:split",
     "<C-w>": "command:wincmd k"
   },
   // coc-git
@@ -43,5 +51,7 @@
   "git.topRemovedSign.hlGroup": "GitGutterDelete",
   "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
   "git.addGlameToVirtualText": true,
-  "git.addGlameToBufferVar": true
+  "git.addGlameToBufferVar": true,
+  // coc-yank
+  "yank.highlight.duration": 350
 }
