@@ -1,5 +1,3 @@
-set nocompatible
-filetype off
 call plug#begin('~/.vim/bundle')
 
 " MISC tools ================================================================{{{
@@ -818,6 +816,5 @@ set statusline=%{anzu#search_status()}
 " }}}
 
 call plug#end()
-filetype plugin on
 
 " vim: set fdl=0 fdm=marker:

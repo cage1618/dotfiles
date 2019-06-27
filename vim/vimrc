@@ -29,16 +29,13 @@ colorscheme one
 " Code fold
 set foldmethod=indent
 set foldlevel=99
-" tab width
+" Default tab width = 4 space
 set tabstop=4
 set shiftwidth=4
 set expandtab
 set autoindent
 " backspace
 set backspace=indent,eol,start " backspace over everything in insert mode
-" files syntax
-syntax on
-filetype plugin on
 
 " }}}
 
