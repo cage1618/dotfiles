@@ -415,7 +415,7 @@ let g:indentLine_enabled = 0
 nnoremap <leader>ig :IndentLinesToggle <CR>
 
 " Golang ===================================================================={{{
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'for': 'go' }
 " enrich highlighting
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
