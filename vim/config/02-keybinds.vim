@@ -5,7 +5,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 " y$ -> Y Make Y behave like other capitals
-map Y y$
+noremap Y y$
 
 " Quickly close & save the current window
 nnoremap <leader>q :q<CR>
