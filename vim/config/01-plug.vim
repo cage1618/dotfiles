@@ -766,16 +766,41 @@ let g:UltiSnipsEditSplit="vertical"
 " }}}
 
 " Code tags ================================================================={{{
-Plug 'majutsushi/tagbar'
-nmap <F9> :TagbarToggle<CR>
-let g:tagbar_sort = 0
-let g:tagbar_autofocus = 1
+" Plug 'majutsushi/tagbar'
+" nmap <F9> :TagbarToggle<CR>
+" let g:tagbar_sort = 0
+" let g:tagbar_autofocus = 1
+
+" Vista.vim
+Plug 'liuchengxu/vista.vim'
+" How each level is indented and what to prepend.
+" This could make the display more compact or more spacious.
+" e.g., more compact: ["▸ ", ""]
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+let g:vista_sidebar_width = 35
+let g:vista_echo_cursor_strategy = 'floating_win'
+
+" Executive used when opening vista sidebar without specifying it.
+" See all the avaliable executives via `:echo g:vista#executives`.
+let g:vista_default_executive = 'ctags'
+let g:vista_executive_for = {
+  \ 'cpp': 'coc',
+  \ 'typescript': 'coc',
+  \ 'go': 'coc',
+  \ 'python': 'coc',
+  \ }
+
+" Ensure you have installed some decent font to show these pretty symbols, then you can enable icon for the kind.
+let g:vista#renderer#enable_icon = 1
+
+" Map F9 to toggle sidebar
+nnoremap <F9> :Vista!!<CR>
 
 " Re-generate the tag file on save
 Plug 'ludovicchabant/vim-gutentags'
 " Stop gutentags getting upset in short-lived sessions
 " https://github.com/ludovicchabant/vim-gutentags/issues/178
- let g:gutentags_exclude_filetypes=['gitcommit']
+let g:gutentags_exclude_filetypes=['gitcommit']
 
 " Code signature
 Plug 'kshenoy/vim-signature'
