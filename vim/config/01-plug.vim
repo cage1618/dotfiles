@@ -602,7 +602,7 @@ let g:ale_sign_warning = '⚠'
 " coc-vimlsp
 " coc-tsserver
 " coc-tslint-plugin
-" coc-pair
+" coc-pairs
 " coc-git
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Smaller updatetime for CursorHold & CursorHoldI
