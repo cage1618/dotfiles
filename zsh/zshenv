@@ -12,9 +12,6 @@ export WORKON_HOME=~/virtualenvs
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export PIP_RESPECT_VIRTUALENV=true
 
-# homebrew
-export HOMEBREW_GITHUB_API_TOKEN=a693b62fad1c3ddb0587c496c2731e3d48bab20b
-
 # tmux
 #export ZSH_TMUX_AUTOSTART=true
 #export ZSH_TMUX_AUTOQUIT=true
