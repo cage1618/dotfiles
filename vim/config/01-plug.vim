@@ -540,10 +540,10 @@ let g:ale_sign_error = '⤫'
 let g:ale_sign_warning = '⚠'
 
 " virtual text, conflicts with coc-git
-" let g:ale_virtualtext_cursor = 1
-" let g:ale_virtualtext_prefix = '    > '
-" hi link ALEError ALEErrorSign
-" hi link ALEWarning ALEWarningSign
+let g:ale_virtualtext_cursor = 1
+let g:ale_virtualtext_prefix = '    > '
+hi link ALEError ALEErrorSign
+hi link ALEWarning ALEWarningSign
 
 " }}}
 
