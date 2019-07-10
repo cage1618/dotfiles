@@ -458,7 +458,7 @@ autocmd FileType go noremap <buffer> <leader>ga :GoAlternate<cr>
 autocmd FileType go noremap <buffer> <leader>gi :GoInfo<cr>
 autocmd FileType go noremap <buffer> <leader>bt :GoDecls<cr>
 autocmd FileType go noremap <buffer> <leader>gt :GoDeclsDir<cr>
-autocmd FileType go noremap <buffer> <leader>b :GoBuild<cr>
+autocmd FileType go noremap <buffer> <leader>gb :GoBuild<cr>
 autocmd FileType go noremap <buffer> <leader>r :GoRun<cr>
 
 autocmd FileType go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
@@ -541,7 +541,7 @@ let g:ale_sign_warning = '⚠'
 
 " virtual text, conflicts with coc-git
 let g:ale_virtualtext_cursor = 1
-let g:ale_virtualtext_prefix = '    > '
+let g:ale_virtualtext_prefix = ' > '
 hi link ALEError ALEErrorSign
 hi link ALEWarning ALEWarningSign
 

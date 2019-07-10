@@ -35,8 +35,9 @@
     "d": "expr:GetDeleteAction"
   },
   "list.insertMappings": {
+    "<CR>": "do:defaultaction",
     "<C-r>": "do:refresh",
-    "<C-m>": "do:switch",
+    "<C-g>": "do:switch",
     "<C-n>": "normal:j",
     "<C-p>": "normal:k",
     "<C-t>": "action:tabe",
