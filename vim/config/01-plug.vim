@@ -454,12 +454,12 @@ autocmd FileType go map <buffer> <silent> <C-t>] <Plug>(go-def-tab)
 autocmd FileType go map <buffer> <silent> <C-w><C-]> <Plug>(go-def-split)
 autocmd FileType go map <buffer> <silent> <C-w>] <Plug>(go-def-split)
 
-autocmd FileType go noremap <buffer> <leader>ga :GoAlternate<cr>
-autocmd FileType go noremap <buffer> <leader>gi :GoInfo<cr>
-autocmd FileType go noremap <buffer> <leader>bt :GoDecls<cr>
-autocmd FileType go noremap <buffer> <leader>gt :GoDeclsDir<cr>
-autocmd FileType go noremap <buffer> <leader>gb :GoBuild<cr>
-autocmd FileType go noremap <buffer> <leader>r :GoRun<cr>
+autocmd FileType go noremap <buffer> <silent> <leader>ga :GoAlternate<cr>
+autocmd FileType go noremap <buffer> <silent> <leader>gi :GoInfo<cr>
+autocmd FileType go noremap <buffer> <silent> <leader>bt :GoDecls<cr>
+autocmd FileType go noremap <buffer> <silent> <leader>gt :GoDeclsDir<cr>
+autocmd FileType go noremap <buffer> <silent> <leader>gb :GoBuild<cr>
+autocmd FileType go noremap <buffer> <silent> <leader>r :GoRun<cr>
 
 autocmd FileType go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
 autocmd FileType go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
